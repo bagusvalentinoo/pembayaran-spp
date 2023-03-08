@@ -27,13 +27,73 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            $this->setApiRoutes();
+            $this->setWebRoutes();
         });
+    }
+
+    /**
+     * Set API Routes
+     *
+     * @return void
+     */
+    public function setApiRoutes()
+    {
+        // API Public Route
+        Route::prefix('/api/public')
+            ->middleware(['api'])
+            ->group(base_path('routes/api/public.php'));
+
+        Route::prefix('/api/general')
+            ->middleware(['api', 'auth'])
+            ->group(base_path('routes/api/general.php'));
+
+        // API Admin Route
+        Route::prefix('/api/admin')
+            ->middleware(['api'])
+            ->group(base_path('routes/api/admin.php'));
+
+        // API Petugas Route
+        Route::prefix('/api/petugas')
+            ->middleware(['api'])
+            ->group(base_path('routes/api/petugas.php'));
+
+        // API Siswa Route
+        Route::prefix('/api/siswa')
+            ->middleware(['api'])
+            ->group(base_path('routes/api/siswa.php'));
+    }
+
+    /**
+     * Set Web Routes
+     *
+     * @return void
+     */
+    public function setWebRoutes()
+    {
+        // Web Public Route
+        Route::middleware(['web'])
+            ->group(base_path('routes/web/public.php'));
+
+        // Web General Route
+        Route::prefix('general')
+            ->middleware(['web'])
+            ->group(base_path('routes/web/general.php'));
+
+        // Web Admin Route
+        Route::prefix('admin')
+            ->middleware(['web'])
+            ->group(base_path('routes/web/admin.php'));
+
+        // Web Petugas Route
+        Route::prefix('petugas')
+            ->middleware(['web'])
+            ->group(base_path('routes/web/petugas.php'));
+
+        // Web Siswa Route
+        Route::prefix('siswa')
+            ->middleware(['web'])
+            ->group(base_path('routes/web/siswa.php'));
     }
 
     /**
