@@ -7,7 +7,7 @@ use Database\Seeders\Other\AddAcademicYearsForStartingSeeder;
 use Database\Seeders\Other\AddSemestersForStartingSeeder;
 use Database\Seeders\School\AddSchoolsInsteadOfCompetenciesForStartingSeeder;
 use Database\Seeders\User\AddRolesForStartingSeeder;
-use Database\Seeders\User\AddUsersForStartingSeeder;
+use Database\Seeders\User\AddUsersInsteadOfChildForStartingSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 AddRolesForStartingSeeder::class,
-                AddUsersForStartingSeeder::class,
+                AddUsersInsteadOfChildForStartingSeeder::class,
                 AddAcademicYearsForStartingSeeder::class,
                 AddSemestersForStartingSeeder::class,
                 AddSchoolsInsteadOfCompetenciesForStartingSeeder::class,

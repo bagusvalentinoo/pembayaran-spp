@@ -4,11 +4,12 @@ namespace Database\Seeders\User;
 
 use App\Models\User\User;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 
-class AddUsersForStartingSeeder extends Seeder
+class AddUsersInsteadOfChildForStartingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +17,7 @@ class AddUsersForStartingSeeder extends Seeder
     public function run(): void
     {
         $carbonNow = Carbon::now();
+        $faker = Factory::create('id_ID');
 
         $userSuperAdmin = (new User())->create(
             [
@@ -30,6 +32,15 @@ class AddUsersForStartingSeeder extends Seeder
         );
         $userSuperAdmin->assignRole(['Super Admin']);
 
+        $userSuperAdmin->superAdmin()->create(
+            [
+                'user_id' => $userSuperAdmin->id,
+                'name' => 'Super Admin 01',
+                'phone_number' => $faker->phoneNumber(),
+                'address' => $faker->address()
+            ]
+        );
+
         $userAdmin = (new User())->create(
             [
                 'id' => Uuid::uuid4(),
@@ -43,7 +54,16 @@ class AddUsersForStartingSeeder extends Seeder
         );
         $userAdmin->assignRole(['Admin']);
 
-        $userPetugas = (new User())->create(
+        $userAdmin->admin()->create(
+            [
+                'user_id' => $userAdmin->id,
+                'name' => 'Admin 01',
+                'phone_number' => $faker->phoneNumber(),
+                'address' => $faker->address()
+            ]
+        );
+
+        $userOfficer = (new User())->create(
             [
                 'id' => Uuid::uuid4(),
                 'name' => 'Petugas 01',
@@ -54,9 +74,18 @@ class AddUsersForStartingSeeder extends Seeder
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
         );
-        $userPetugas->assignRole(['Petugas']);
+        $userOfficer->assignRole(['Petugas']);
 
-        $userSiswa = (new User())->create(
+        $userOfficer->officer()->create(
+            [
+                'user_id' => $userOfficer->id,
+                'name' => 'Petugas 01',
+                'phone_number' => $faker->phoneNumber(),
+                'address' => $faker->address()
+            ]
+        );
+
+        $userStudentOne = (new User())->create(
             [
                 'id' => Uuid::uuid4(),
                 'name' => 'Tania Dwi Pangesti',
@@ -68,9 +97,19 @@ class AddUsersForStartingSeeder extends Seeder
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
         );
-        $userSiswa->assignRole(['Siswa']);
+        $userStudentOne->assignRole(['Siswa']);
 
-        $userSiswaTwo = (new User())->create(
+        $userStudentOne->student()->create(
+            [
+                'user_id' => $userStudentOne->id,
+                'nisn' => '0051322510',
+                'nis' => '201114934',
+                'address' => $faker->address(),
+                'phone_number' => $faker->phoneNumber()
+            ]
+        );
+
+        $userStudentTwo = (new User())->create(
             [
                 'id' => Uuid::uuid4(),
                 'name' => 'Mochamad Bagus Valentino Mazid',
@@ -82,6 +121,16 @@ class AddUsersForStartingSeeder extends Seeder
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
         );
-        $userSiswaTwo->assignRole(['Siswa']);
+        $userStudentTwo->assignRole(['Siswa']);
+
+        $userStudentTwo->student()->create(
+            [
+                'user_id' => $userStudentTwo->id,
+                'nisn' => '0051322511',
+                'nis' => '201114935',
+                'address' => $faker->address(),
+                'phone_number' => $faker->phoneNumber()
+            ]
+        );
     }
 }

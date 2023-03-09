@@ -10,25 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('super_admins', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id');
-            $table->foreignUuid('classroom_id')->nullable();
-            $table->string('nisn');
-            $table->string('nis');
-            $table->text('address');
+            $table->string('name');
             $table->string('phone_number');
+            $table->text('address');
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('classroom_id')
-                ->references('id')
-                ->on('classrooms')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -39,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('super_admins');
     }
 };

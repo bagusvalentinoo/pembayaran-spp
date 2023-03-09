@@ -51,8 +51,18 @@ class User extends Authenticatable
     // Relationships
 
     /**
+     * Super Admin Relation
+     *
+     * @return HasOne
+     */
+    public function superAdmin(): HasOne
+    {
+        return $this->hasOne(SuperAdmin::class);
+    }
+
+    /**
      * Admin Relation
-     * 
+     *
      * @return HasOne
      */
     public function admin(): HasOne
@@ -62,7 +72,7 @@ class User extends Authenticatable
 
     /**
      * Officer Relation
-     * 
+     *
      * @return HasOne
      */
     public function officer(): HasOne
@@ -72,7 +82,7 @@ class User extends Authenticatable
 
     /**
      * Student Relation
-     * 
+     *
      * @return HasOne
      */
     public function student()
