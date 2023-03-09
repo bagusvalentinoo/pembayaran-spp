@@ -50,18 +50,18 @@ class RouteServiceProvider extends ServiceProvider
 
         // API Admin Route
         Route::prefix('/api/admin')
-            ->middleware(['api'])
+            ->middleware(['api', 'auth', 'role:Admin'])
             ->group(base_path('routes/api/admin.php'));
 
         // API Petugas Route
-        Route::prefix('/api/petugas')
+        Route::prefix('/api/officer')
             ->middleware(['api'])
-            ->group(base_path('routes/api/petugas.php'));
+            ->group(base_path('routes/api/officer.php'));
 
         // API Siswa Route
-        Route::prefix('/api/siswa')
+        Route::prefix('/api/student')
             ->middleware(['api'])
-            ->group(base_path('routes/api/siswa.php'));
+            ->group(base_path('routes/api/student.php'));
     }
 
     /**
@@ -82,18 +82,18 @@ class RouteServiceProvider extends ServiceProvider
 
         // Web Admin Route
         Route::prefix('admin')
-            ->middleware(['web'])
+            ->middleware(['web', 'auth', 'role:Admin'])
             ->group(base_path('routes/web/admin.php'));
 
         // Web Petugas Route
         Route::prefix('petugas')
-            ->middleware(['web'])
-            ->group(base_path('routes/web/petugas.php'));
+            ->middleware(['web', 'auth', 'role:Petugas'])
+            ->group(base_path('routes/web/officer.php'));
 
         // Web Siswa Route
-        Route::prefix('siswa')
+        Route::prefix('siswa', 'auth', 'role:Siswa')
             ->middleware(['web'])
-            ->group(base_path('routes/web/siswa.php'));
+            ->group(base_path('routes/web/student.php'));
     }
 
     /**

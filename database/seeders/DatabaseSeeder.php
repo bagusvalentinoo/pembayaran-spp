@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Other\AddAcademicYearsForStartingSeeder;
+use Database\Seeders\Other\AddSemestersForStartingSeeder;
+use Database\Seeders\School\AddSchoolsInsteadOfCompetenciesForStartingSeeder;
 use Database\Seeders\User\AddRolesForStartingSeeder;
 use Database\Seeders\User\AddUsersForStartingSeeder;
 use Illuminate\Database\Seeder;
@@ -18,6 +21,9 @@ class DatabaseSeeder extends Seeder
             [
                 AddRolesForStartingSeeder::class,
                 AddUsersForStartingSeeder::class,
+                AddAcademicYearsForStartingSeeder::class,
+                AddSemestersForStartingSeeder::class,
+                AddSchoolsInsteadOfCompetenciesForStartingSeeder::class,
             ]
         );
     }

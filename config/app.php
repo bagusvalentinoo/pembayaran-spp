@@ -196,7 +196,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Auth Service Provider
-        App\Providers\Services\AuthServiceProvider::class
+        App\Providers\Services\AuthServiceProvider::class,
+
+        // Admin Service Provider
+        App\Providers\Services\AdminServiceProvider::class,
 
     ],
 

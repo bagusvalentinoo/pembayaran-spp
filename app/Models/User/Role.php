@@ -3,7 +3,6 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role as SpatieRoleModel;
 
 class Role extends SpatieRoleModel
@@ -14,6 +13,7 @@ class Role extends SpatieRoleModel
      * @var array|string[]
      */
     public static array $roleNames = [
+        'super-admin' => 'Super Admin',
         'admin' => 'Admin',
         'petugas' => 'Petugas',
         'siswa' => 'Siswa'

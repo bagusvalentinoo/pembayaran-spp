@@ -21,7 +21,7 @@ class AuthServiceImpl implements AuthService
 
     /**
      * Check Login Credentials
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return \App\Models\User\User
      */
@@ -46,7 +46,7 @@ class AuthServiceImpl implements AuthService
 
     /**
      * Login
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User\User $user
      * @return \Illuminate\Contracts\Auth\Authenticatable|bool
@@ -58,7 +58,7 @@ class AuthServiceImpl implements AuthService
 
     /**
      * Get Auth Url Redirect By Role
-     * 
+     *
      * @param \App\Models\User\User $user
      * @return string
      */
@@ -70,6 +70,9 @@ class AuthServiceImpl implements AuthService
         if (!$firstRole) return $redirectUrl;
 
         switch ($firstRole->name) {
+            case Role::$roleNames['super-admin']:
+                $redirectUrl = '/super-admin/dashboard';
+                break;
             case Role::$roleNames['admin']:
                 $redirectUrl = '/admin/dashboard';
                 break;
@@ -86,7 +89,7 @@ class AuthServiceImpl implements AuthService
 
     /**
      * Logout
-     * 
+     *
      * @return void
      */
     public function logout()
