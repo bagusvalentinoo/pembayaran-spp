@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Classroom;
+namespace App\Services\Admin\Classroom;
 
 use Illuminate\Http\Request;
 

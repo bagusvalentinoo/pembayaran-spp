@@ -5,9 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Other\AddAcademicYearsForStartingSeeder;
 use Database\Seeders\Other\AddSemestersForStartingSeeder;
-use Database\Seeders\School\AddSchoolsInsteadOfCompetenciesForStartingSeeder;
+use Database\Seeders\School\AddSchoolsIncludeCompetenciesForStartingSeeder;
 use Database\Seeders\User\AddRolesForStartingSeeder;
-use Database\Seeders\User\AddUsersInsteadOfChildForStartingSeeder;
+use Database\Seeders\User\AddUsersIncludedChildForStartingSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
+                AddSchoolsIncludeCompetenciesForStartingSeeder::class,
                 AddRolesForStartingSeeder::class,
-                AddUsersInsteadOfChildForStartingSeeder::class,
+                AddUsersIncludedChildForStartingSeeder::class,
                 AddAcademicYearsForStartingSeeder::class,
                 AddSemestersForStartingSeeder::class,
-                AddSchoolsInsteadOfCompetenciesForStartingSeeder::class,
             ]
         );
     }

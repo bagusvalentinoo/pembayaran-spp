@@ -12,15 +12,8 @@ return new class extends Migration {
     {
         Schema::create('competencies', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('school_id');
             $table->string('name');
             $table->timestamps();
-
-            $table->foreign('school_id')
-                ->references('id')
-                ->on('schools')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
     }
 

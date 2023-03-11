@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Classroom\Impl;
+namespace App\Services\Admin\Classroom\Impl;
 
 use App\Models\School\Classroom;
-use App\Services\Classroom\ClassroomService;
+use App\Services\Admin\Classroom\ClassroomService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +13,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('/', [ApiController::class, 'home'])->name('api.public.home');

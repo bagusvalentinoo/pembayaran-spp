@@ -2,8 +2,8 @@
 
 namespace App\Providers\Services;
 
-use App\Services\Classroom\ClassroomService;
-use App\Services\Classroom\Impl\ClassroomServiceImpl;
+use App\Services\Admin\Classroom\ClassroomService;
+use App\Services\Admin\Classroom\Impl\ClassroomServiceImpl;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 

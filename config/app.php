@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -197,6 +197,9 @@ return [
 
         // Auth Service Provider
         App\Providers\Services\AuthServiceProvider::class,
+
+        // Super Admin Service Provider
+        App\Providers\Services\SuperAdminServiceProvider::class,
 
         // Admin Service Provider
         App\Providers\Services\AdminServiceProvider::class,

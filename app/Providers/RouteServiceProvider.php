@@ -37,16 +37,26 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function setApiRoutes()
+    public function setApiRoutes(): void
     {
+        Route::prefix('/api')
+            ->middleware(['api'])
+            ->group(base_path('routes/api.php'));
+
         // API Public Route
         Route::prefix('/api/public')
             ->middleware(['api'])
             ->group(base_path('routes/api/public.php'));
 
+        // API General Route
         Route::prefix('/api/general')
             ->middleware(['api', 'auth'])
             ->group(base_path('routes/api/general.php'));
+
+        // API Super Admin Route
+        Route::prefix('/api/super-admin')
+            ->middleware(['api', 'auth', 'role:Super Admin'])
+            ->group(base_path('routes/api/super_admin.php'));
 
         // API Admin Route
         Route::prefix('/api/admin')
@@ -58,7 +68,7 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['api'])
             ->group(base_path('routes/api/officer.php'));
 
-        // API Siswa Route
+        // API Student Route
         Route::prefix('/api/student')
             ->middleware(['api'])
             ->group(base_path('routes/api/student.php'));

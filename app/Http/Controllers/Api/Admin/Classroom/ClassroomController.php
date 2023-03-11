@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Admin\Classroom;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\School\Classroom\ClassroomRequest;
-use App\Services\Classroom\ClassroomService;
+use App\Services\Admin\Classroom\ClassroomService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 

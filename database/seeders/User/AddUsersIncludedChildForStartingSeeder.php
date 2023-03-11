@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\User;
 
+use App\Models\School\School;
 use App\Models\User\User;
 use Carbon\Carbon;
 use Faker\Factory;
@@ -9,7 +10,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 
-class AddUsersInsteadOfChildForStartingSeeder extends Seeder
+class AddUsersIncludedChildForStartingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,6 +19,7 @@ class AddUsersInsteadOfChildForStartingSeeder extends Seeder
     {
         $carbonNow = Carbon::now();
         $faker = Factory::create('id_ID');
+        $schoolSmkOneCimahiId = School::where('name', 'SMK Negeri 1 Cimahi')->first()->id;
 
         $userSuperAdmin = (new User())->create(
             [
@@ -26,7 +28,7 @@ class AddUsersInsteadOfChildForStartingSeeder extends Seeder
                 'username' => 'super_admin_01',
                 'email' => 'superadmin01@gmail.com',
                 'photo_profile' => 'public/images/user/super-admin/photo_profile/default_photo_profile.jpg',
-                'password' => Hash::make('super_admin_01'),
+                'password' => Hash::make('--KFS624Fw98??'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
         );
@@ -57,6 +59,7 @@ class AddUsersInsteadOfChildForStartingSeeder extends Seeder
         $userAdmin->admin()->create(
             [
                 'user_id' => $userAdmin->id,
+                'school_id' => $schoolSmkOneCimahiId,
                 'name' => 'Admin 01',
                 'phone_number' => $faker->phoneNumber(),
                 'address' => $faker->address()
