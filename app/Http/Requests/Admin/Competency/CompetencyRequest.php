@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Requests\School\Classroom;
+namespace App\Http\Requests\Admin\Competency;
 
 use App\Http\Requests\RequestResource;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClassroomRequest extends FormRequest implements RequestResource
+class CompetencyRequest extends FormRequest implements RequestResource
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool
      */
     public function authorize(): bool
     {
@@ -47,17 +49,8 @@ class ClassroomRequest extends FormRequest implements RequestResource
     public function getCreateRules(): array
     {
         return [
-            'competencies' => [
-                'required', 'array', 'min:1'
-            ],
-            'competencies.*.id' => [
-                'required', 'uuid', 'exists:competencies,id'
-            ],
-            'competencies.*.classrooms' => [
-                'required', 'array', 'min:1'
-            ],
-            'competencies.*.classrooms.*' => [
-                'required', 'string'
+            'names' => [
+                'required', 'array'
             ]
         ];
     }
@@ -70,17 +63,8 @@ class ClassroomRequest extends FormRequest implements RequestResource
     public function getUpdateRules(): array
     {
         return [
-            'competency_id' => [
-                'required'
-            ],
-            'competency_id.*' => [
-                'uuid', 'exists:competencies,id'
-            ],
             'name' => [
                 'required'
-            ],
-            'name.*' => [
-                'string'
             ]
         ];
     }
@@ -97,36 +81,22 @@ class ClassroomRequest extends FormRequest implements RequestResource
                 'required', 'array', 'min:1'
             ],
             'ids.*' => [
-                'uuid', 'exists:classrooms,id'
+                'uuid', 'exists:competencies,id'
             ]
         ];
     }
 
     /**
-     * Set Custom Message Error
+     * Custom Error Message
      *
      * @return array
      */
     public function messages()
     {
         return [
-
-            // Create Messages
-            'competencies.required' => 'Kompetensi wajib diisi',
-            'competencies.array' => 'Kompetensi harus berupa array',
-            'competencies.min' => 'Minimal 1 kompetensi diperlukan',
-            'competencies.*.id.required' => 'ID kompetensi diperlukan',
-            'competencies.*.id.uuid' => 'ID kompetensi tidak valid',
-            'competencies.*.id.exists' => 'ID kompetensi tidak ditemukan',
-            'competencies.*.classrooms.required' => 'Kelas diperlukan',
-            'competencies.*.classrooms.array' => 'Kelas harus berupa array',
-            'competencies.*.classrooms.min' => 'Minimal 1 kelas diperlukan',
-            'competencies.*.classrooms.*.required' => 'Nama kelas diperlukan',
-            'competencies.*.classrooms.*.string' => 'Nama kelas harus berupa string',
-
-            // Update Messages
-
-            // Delete Messages
+            'names.required' => 'Nama Kompetensi wajib diisi',
+            'names.array' => 'Nama Kompetensi harus bertipe array',
+            'name.required' => 'Nama Kompetensi wajib diisi',
             'ids.required' => 'Id Kompetensi wajib diisi',
             'ids.array' => 'Id Kompetensi harus berupa array',
             'ids.min' => 'Minimal terdapat 1 item Id',

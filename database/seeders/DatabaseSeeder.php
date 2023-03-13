@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Other\AddAcademicYearsForStartingSeeder;
 use Database\Seeders\Other\AddSemestersForStartingSeeder;
+use Database\Seeders\School\AddClassroomsForStartingSeeder;
 use Database\Seeders\School\AddSchoolsIncludeCompetenciesForStartingSeeder;
 use Database\Seeders\User\AddRolesForStartingSeeder;
 use Database\Seeders\User\AddUsersIncludedChildForStartingSeeder;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 AddSchoolsIncludeCompetenciesForStartingSeeder::class,
+                AddClassroomsForStartingSeeder::class,
                 AddRolesForStartingSeeder::class,
                 AddUsersIncludedChildForStartingSeeder::class,
                 AddAcademicYearsForStartingSeeder::class,

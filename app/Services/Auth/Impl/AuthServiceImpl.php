@@ -5,6 +5,7 @@ namespace App\Services\Auth\Impl;
 use App\Models\User\Role;
 use App\Models\User\User;
 use App\Services\Auth\AuthService;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,8 +23,8 @@ class AuthServiceImpl implements AuthService
     /**
      * Check Login Credentials
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \App\Models\User\User
+     * @param Request $request
+     * @return User
      */
     public function checkLoginCredentials(Request $request): User
     {
@@ -47,9 +48,9 @@ class AuthServiceImpl implements AuthService
     /**
      * Login
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User\User $user
-     * @return \Illuminate\Contracts\Auth\Authenticatable|bool
+     * @param Request $request
+     * @param User $user
+     * @return Authenticatable|bool
      */
     public function login(Request $request, User $user)
     {
@@ -59,7 +60,7 @@ class AuthServiceImpl implements AuthService
     /**
      * Get Auth Url Redirect By Role
      *
-     * @param \App\Models\User\User $user
+     * @param User $user
      * @return string
      */
     public function getAuthUrlRedirectByRole(User $user): string

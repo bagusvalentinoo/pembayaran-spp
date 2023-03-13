@@ -16,21 +16,12 @@ class Classroom extends Model
     protected $table = 'classrooms';
 
     protected $fillable = [
+        'school_id',
         'competency_id',
         'name'
     ];
 
     // Relationships
-
-    /**
-     * Competency Relation
-     *
-     * @return BelongsTo
-     */
-    public function competency(): BelongsTo
-    {
-        return $this->belongsTo(Competency::class);
-    }
 
     /**
      * Students Relation
@@ -40,5 +31,25 @@ class Classroom extends Model
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
+    }
+
+    /**
+     * School Relation
+     *
+     * @return BelongsTo
+     */
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    /**
+     * Competency Relation
+     *
+     * @return BelongsTo
+     */
+    public function competency(): BelongsTo
+    {
+        return $this->belongsTo(Competency::class);
     }
 }

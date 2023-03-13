@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\Classroom\ClassroomController;
+use App\Http\Controllers\Api\Admin\Competency\CompetencyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::group(['prefix' => 'competencies'], function () {
+    Route::get('/', [CompetencyController::class, 'index'])->name('api.admin.competency.index');
+    Route::get('/{param}', [CompetencyController::class, 'show'])->name('api.admin.competency.show');
+    Route::post('/', [CompetencyController::class, 'store'])->name('api.admin.comptency.store');
+    Route::put('/{param}', [CompetencyController::class, 'update'])->name('api.admin.competency.update');
+    Route::delete('/', [CompetencyController::class, 'destroy'])->name('api.admin.competency.destroy');
+});
 
 Route::group(['prefix' => 'classrooms'], function () {
     Route::get('/', [ClassroomController::class, 'index'])->name('api.admin.classroom.index');

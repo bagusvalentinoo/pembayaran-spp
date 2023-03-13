@@ -22,5 +22,5 @@ interface AdminService
      * @param School $school
      * @return mixed
      */
-    public function createAdmin(Request $request, School $school);
+    public function createAdmin(Request $request, School $school, $randomPassword);
 }

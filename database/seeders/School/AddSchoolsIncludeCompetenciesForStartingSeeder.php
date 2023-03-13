@@ -2,10 +2,10 @@
 
 namespace Database\Seeders\School;
 
-use App\Models\School\Competency;
 use App\Models\School\School;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Ramsey\Uuid\Uuid;
 
 class AddSchoolsIncludeCompetenciesForStartingSeeder extends Seeder
 {
@@ -27,49 +27,70 @@ class AddSchoolsIncludeCompetenciesForStartingSeeder extends Seeder
             'updated_at' => $carbonNow
         ]);
 
-        $competencyOne = (new Competency())->create([
-            'name' => 'TEKNIK ELEKTRONIKA INDUSTRI'
+        $schoolSmkOneCimahi->competencies()->insert([
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'TEKNIK ELEKTRONIKA INDUSTRI',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'TEKNIK ELEKTRONIKA KOMUNIKASI',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'TEKNIK OTOMASI INDUSTRI',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'TEKNIK PEMANASAN, TATA UDARA, DAN PENDINGINAN',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'INSTRUMENTASI DAN OTOMATISASI PROSES',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'TEKNIK MEKATRONIKA',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'SISTEM INFORMASI JARINGAN DAN APLIKASI',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'REKAYASA PERANGKAT LUNAK',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ],
+            [
+                'id' => Uuid::uuid4(),
+                'school_id' => $schoolSmkOneCimahi->id,
+                'name' => 'PRODUKSI DAN SIARAN PROGRAM TELEVISI',
+                'created_at' => $carbonNow,
+                'updated_at' => $carbonNow
+            ]
         ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyOne->id]);
-
-        $competencyTwo = (new Competency())->create([
-            'name' => 'TEKNIK ELEKTRONIKA KOMUNIKASI'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyTwo->id]);
-
-        $competencyThree = (new Competency())->create([
-            'name' => 'TEKNIK OTOMASI INDUSTRI'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyThree->id]);
-
-        $competencyFour = (new Competency())->create([
-            'name' => 'TEKNIK PEMANASAN, TATA UDARA, DAN PENDINGINAN'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyFour->id]);
-
-        $competencyFive = (new Competency())->create([
-            'name' => 'INSTRUMENTASI DAN OTOMATISASI PROSES'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyFive->id]);
-
-        $competencySix = (new Competency())->create([
-            'name' => 'TEKNIK MEKATRONIKA'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencySix->id]);
-
-        $competencySeven = (new Competency())->create([
-            'name' => 'SISTEM INFORMASI JARINGAN DAN APLIKASI'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencySeven->id]);
-
-        $competencyEight = (new Competency())->create([
-            'name' => 'REKAYASA PERANGKAT LUNAK'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyEight->id]);
-
-        $competencyNine = (new Competency())->create([
-            'name' => 'PRODUKSI DAN SIARAN PROGRAM TELEVISI'
-        ]);
-        $schoolSmkOneCimahi->competencies()->attach([$competencyNine->id]);
     }
 }

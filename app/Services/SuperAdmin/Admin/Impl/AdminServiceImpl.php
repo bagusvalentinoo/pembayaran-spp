@@ -41,22 +41,23 @@ class AdminServiceImpl implements AdminService
      * @param $school
      * @return mixed
      */
-    public function createAdmin(Request $request, $school)
+    public function createAdmin(Request $request, $school, $randomPassword)
     {
         $strLowerSchoolName = $this->setStrReplace(' ', '', $school->name);
         $formatSchoolName = $this->setStrToLower($strLowerSchoolName) . '_admin_' .
             $this->setGeneratedRandomLastDigitsAdminUsername(0, 9999, 4);
-        $randomPassword = $this->setGeneratedRandomPassword(10);
         $userAdminName = $this->setStrReplace('_', ' ', $this->setStrToUpper($formatSchoolName));
 
         $userAdmin = $this->userModel->create(
             array_filter([
                 'name' => $userAdminName,
                 'username' => $formatSchoolName,
+                'email' => $school->email,
                 'photo_profile' => 'public/images/user/admin/photo_profile/default_photo_profile.jpg',
                 'password' => Hash::make($randomPassword)
             ], customArrayFilter())
         );
+        $userAdmin->assignRole(['Admin']);
 
         $userAdmin->admin()->create([
             'user_id' => $userAdmin->id,

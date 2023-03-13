@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\AuthService;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class AuthController extends ApiController
@@ -18,9 +19,9 @@ class AuthController extends ApiController
 
     /**
      * Login
-     * 
-     * @param \App\Http\Requests\Auth\LoginRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param LoginRequest $request
+     * @return JsonResponse
      */
     public function login(LoginRequest $request)
     {
@@ -36,13 +37,16 @@ class AuthController extends ApiController
                 ->setMessageFromPurpose('login')
                 ->setStatusCode(ResponseAlias::HTTP_OK)
                 ->setMessage('Login berhasil')
+                ->setData([
+                    'user' => $user
+                ])
         );
     }
 
     /**
      * Logout
-     * 
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse
      */
     public function logout()
     {

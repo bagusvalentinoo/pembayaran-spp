@@ -1,56 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin\Classroom;
+namespace App\Http\Controllers\Api\Admin\Competency;
 
 use App\Exceptions\Http\FormattedResponseException;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\School\Classroom\ClassroomRequest;
-use App\Services\Admin\Classroom\ClassroomService;
+use App\Http\Requests\Admin\Competency\CompetencyRequest;
+use App\Models\School\Competency;
+use App\Services\Admin\Competency\CompetencyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class ClassroomController extends ApiController
+class CompetencyController extends ApiController
 {
-    private $classroomService;
+    private $comptencyService;
 
-    public function __construct(ClassroomService $classroomService)
+    public function __construct(CompetencyService $competencyService)
     {
-        $this->classroomService = $classroomService;
+        $this->comptencyService = $competencyService;
     }
 
     /**
-     * Get Classrooms Data
+     * Get Competencies Data
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws FormattedResponseException
      */
     public function index(Request $request)
     {
-        $classrooms = $this->classroomService->getClassrooms($request);
+        $competencies = $this->comptencyService->getCompetencies($request);
 
         return $this->makeJsonResponse(
             $this->makeResponsePayload()
                 ->setMessageFromPurpose('get')
                 ->setStatusCode(ResponseAlias::HTTP_OK)
-                ->setMessage('Berhasil mendapatkan data kelas')
+                ->setMessage('Data Kompetensi Berhasil didapatkan')
                 ->setData([
-                    'classrooms' => $classrooms
+                    'competencies' => $competencies
                 ])
         );
     }
 
-    /**
-     * Show Classroom By Param
-     *
-     * @param string|int $param
-     * @return JsonResponse
-     * @throws FormattedResponseException
-     */
     public function show(string|int $param)
     {
         try {
-            $classroom = $this->classroomService->findClassroom($param);
+            $competency = $this->comptencyService->findCompetency($param);
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }
@@ -59,49 +54,45 @@ class ClassroomController extends ApiController
             $this->makeResponsePayload()
                 ->setMessageFromPurpose('get')
                 ->setStatusCode(ResponseAlias::HTTP_OK)
-                ->setMessage('Data Kelas berhasil didapatkan')
+                ->setMessage('Berhasil mendapatkan data Kompetensi')
                 ->setData([
-                    'classroom' => $classroom
+                    'competency' => $competency
                 ])
         );
     }
 
     /**
-     * Create Classrooms
+     * Create Competencies
      *
-     * @param ClassroomRequest $request
+     * @param CompetencyRequest $request
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function store(ClassroomRequest $request)
+    public function store(CompetencyRequest $request)
     {
-        try {
-            $this->classroomService->createClassrooms($request);
-        } catch (\Throwable $th) {
-            return $this->returnCatchThrowableToJsonResponse($th);
-        }
+        $this->comptencyService->createCompetencies($request);
 
         return $this->makeJsonResponse(
             $this->makeResponsePayload()
                 ->setMessageFromPurpose('create')
                 ->setStatusCode(ResponseAlias::HTTP_CREATED)
-                ->setMessage('Berhasil memasukan data Kelas')
+                ->setMessage('Berhasil menambahkan data Kompetensi')
         );
     }
 
     /**
-     * Classroom Update
+     * Update Competency
      *
-     * @param ClassroomRequest $request
-     * @param string|int $param
+     * @param CompetencyRequest $request
+     * @param Competency $competency
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function update(ClassroomRequest $request, string|int $param)
+    public function update(CompetencyRequest $request, string|int $param)
     {
         try {
-            $classroom = $this->classroomService->findClassroom($param);
-            $this->classroomService->updateClassroom($request, $classroom);
+            $competency = $this->comptencyService->findCompetency($param);
+            $this->comptencyService->updateCompetency($request, $competency);
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }
@@ -110,21 +101,22 @@ class ClassroomController extends ApiController
             $this->makeResponsePayload()
                 ->setMessageFromPurpose('update')
                 ->setStatusCode(ResponseAlias::HTTP_OK)
-                ->setMessage('Data Kelas berhasil diperbaharui')
+                ->setMessage('Data Kompetensi berhasil diubah')
         );
     }
 
+
     /**
-     * Delete Classrooms
+     * Delete Competencies
      *
-     * @param ClassroomRequest $request
+     * @param CompetencyRequest $request
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function destroy(ClassroomRequest $request)
+    public function destroy(CompetencyRequest $request)
     {
         try {
-            $this->classroomService->deleteClassrooms($request, $request->input('ids'));
+            $this->comptencyService->deleteCompetencies($request, $request->input('ids'));
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }
@@ -133,7 +125,7 @@ class ClassroomController extends ApiController
             $this->makeResponsePayload()
                 ->setMessageFromPurpose('delete')
                 ->setStatusCode(ResponseAlias::HTTP_OK)
-                ->setMessage('Berhasil menghapus data Kelas')
+                ->setMessage('Data Kompetensi berhasil dihapus')
         );
     }
 }

@@ -111,13 +111,14 @@ trait RequestResponse
      */
     protected function returnCatchThrowableToJsonResponse(Throwable $th): JsonResponse
     {
-        $code = $th->getCode() ?? Response::HTTP_INTERNAL_SERVER_ERROR;
+        $code = intval($th->getCode()) ?? Response::HTTP_INTERNAL_SERVER_ERROR;
         $code = $code > 100 && $code < 600 ? $code : Response::HTTP_INTERNAL_SERVER_ERROR;
 
         if ($code === Response::HTTP_INTERNAL_SERVER_ERROR) report($th);
 
         return $this->makeJsonResponse(
-            $this->makeResponsePayload()->setMessage($code == Response::HTTP_INTERNAL_SERVER_ERROR ? "Kesalahan server dari dalam" : $th->getMessage())
+            $this->makeResponsePayload()
+                ->setMessage($code == Response::HTTP_INTERNAL_SERVER_ERROR ? "Kesalahan server dari dalam" : $th->getMessage())
                 ->setStatusCode($code)
         );
     }

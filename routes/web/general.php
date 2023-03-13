@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\General\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('/redirect', [AuthController::class, 'authRedirect'])->name('web.general.auth.authRedirect');
+});

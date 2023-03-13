@@ -7,7 +7,6 @@ use App\Models\User\Officer;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class School extends Model
@@ -29,17 +28,13 @@ class School extends Model
     // Relationships
 
     /**
-     * Competencies Relation
+     * Competencies
      *
-     * @return BelongsToMany
+     * @return HasMany
      */
-    public function competencies(): BelongsToMany
+    public function competencies(): HasMany
     {
-        return $this->belongsToMany(
-            Competency::class,
-            'school_competency',
-            'school_id'
-        );
+        return $this->hasMany(Competency::class);
     }
 
     /**
@@ -60,5 +55,15 @@ class School extends Model
     public function officers(): HasMany
     {
         return $this->hasMany(Officer::class);
+    }
+
+    /**
+     * Classrooms Relation
+     *
+     * @return HasMany
+     */
+    public function classrooms(): HasMany
+    {
+        return $this->hasMany(Classroom::class);
     }
 }

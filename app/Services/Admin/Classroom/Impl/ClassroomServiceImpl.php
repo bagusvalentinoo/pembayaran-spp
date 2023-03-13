@@ -17,16 +17,47 @@ class ClassroomServiceImpl implements ClassroomService
     }
 
     /**
+     * Get School Id From Admin Authenticated
+     *
+     * @return mixed
+     */
+    public function getSchoolIdFromAdminAuthenticated()
+    {
+        return auth()->user()->admin->school->id;
+    }
+
+    /**
      * Get Classrooms
      *
      * @param Request $request
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return mixed
      */
     public function getClassrooms(Request $request)
     {
-        $classrooms = $this->classroomModel->query()->get();
+        $classrooms = $this->classroomModel->where(
+            function ($q) {
+                $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated());
+            }
+        )->orderBy('competency_id', 'DESC')->get();
 
         return $classrooms;
+    }
+
+    /**
+     * Find Classroom
+     *
+     * @param int|string $param
+     * @return mixed
+     * @throws \Exception
+     */
+    public function findClassroom(int|string $param)
+    {
+        $classroom = $this->classroomModel->find($param);
+
+        if (!$classroom)
+            throw new \Exception('Data Kelas tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+
+        return $classroom;
     }
 
     /**
@@ -37,49 +68,58 @@ class ClassroomServiceImpl implements ClassroomService
      */
     public function createClassrooms(Request $request)
     {
-        foreach ($request->input('name') as $key => $name) {
-            $classrooms[] = $this->classroomModel->create(
-                array_filter([
-                    'name' => $name,
-                    'competency' => $request->input('competency')[$key]
-                ], customArrayFilter())
-            );
+        $classrooms = [];
+        $inputCompetencies = $request->input('competencies');
+
+        foreach ($inputCompetencies as $competency) {
+            $competencyId = $competency['id'];
+            $competencies = $competency['classrooms'];
+
+            foreach ($competencies as $classroomName) {
+                $classrooms = $this->classroomModel->create(
+                    array_filter([
+                        'school_id' => $this->getSchoolIdFromAdminAuthenticated(),
+                        'competency_id' => $competencyId,
+                        'name' => $classroomName
+                    ], customArrayFilter())
+                );
+            }
         }
 
         return $classrooms;
     }
 
     /**
-     * Update Classrooms
+     * Update Classroom
      *
-     *
+     * @param Request $request
+     * @param string|int $param
+     * @return mixed
+     * @throws \Exception
      */
-    public function updateClassrooms(Request $request, array $classroomIds)
+    public function updateClassroom(Request $request, Classroom $classroom)
     {
-        //
+        $classroom->update(
+            array_filter([
+                'school_id' => $this->getSchoolIdFromAdminAuthenticated(),
+                'competency_id' => $request->input('competency_id'),
+                'name' => $request->input('name')
+            ], customArrayFilter())
+        );
+
+        return $classroom->refresh();
     }
+
 
     /**
      * Delete Classrooms
      *
      * @param Request $request
-     * @param array $classroomIds
+     * @param array $classroomsIds
      * @return int
-     * @throws \Exception
      */
-    public function deleteClassrooms(Request $request, array $classroomIds)
+    public function deleteClassrooms(Request $request, array $classroomsIds)
     {
-        $classroomsIds = [];
-
-        foreach ($classroomIds as $classroomId) {
-            $isClassroomExits = $this->classroomModel->findOrFail($classroomId)->first()->id;
-
-            if (!$isClassroomExits)
-                throw new \Exception('Data Kelas tidak ditemukan', ResponseAlias::HTTP_NOT_FOUND);
-
-            $classroomsIds = $isClassroomExits;
-        }
-
         return $this->classroomModel->destroy($classroomsIds);
     }
 }
