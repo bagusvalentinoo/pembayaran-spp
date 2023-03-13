@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\User\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'dashboard'], function () {
-    //
+    Route::get('/', [AdminController::class, 'dashboardPage'])->name('web.admin.dashboard.index');
+
+    Route::get('/kompetensi', [AdminController::class, 'kompetensiPage'])->name('web.admin.kompetensi.index');
+
+    Route::get('/kelas', [AdminController::class, 'kelasPage'])->name('web.admin.kelas.index');
+
+    Route::get('/siswa', [AdminController::class, 'siswaPage'])->name('web.admin.siswa.index');
 });
