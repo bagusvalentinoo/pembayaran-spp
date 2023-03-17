@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admins'], function () {
 });
 
 Route::group(['prefix' => 'schools'], function () {
+    Route::get('/', [SchoolController::class, 'index'])->name('api.super-admin.school.index');
     Route::post('/', [SchoolController::class, 'store'])->name('api.super-admin.school.store');
 });
 

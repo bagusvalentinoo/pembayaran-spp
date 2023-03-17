@@ -50,8 +50,8 @@
                 <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
-            </div>
         </div>
+    </div>
     </div>
 
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>

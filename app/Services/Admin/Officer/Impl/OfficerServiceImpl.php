@@ -30,7 +30,7 @@ class OfficerServiceImpl implements OfficerService
     /**
      * Get School Id From Admin Authenticated
      *
-     * @return mixedl e
+     * @return mixedl
      */
     public function getSchoolIdFromAdminAuthenticated(): mixed
     {
@@ -45,9 +45,7 @@ class OfficerServiceImpl implements OfficerService
      */
     public function getOfficers(Request $request): Collection|array
     {
-        $officers = $this->officerModel->query()->with(['user', 'school'])->get();
-
-        return $officers;
+        return $this->officerModel->query()->with(['user', 'school'])->get();
     }
 
     /**
