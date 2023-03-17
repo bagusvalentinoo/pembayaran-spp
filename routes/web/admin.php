@@ -16,10 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [AdminController::class, 'dashboardPage'])->name('web.admin.dashboard.index');
+});
 
-    Route::get('/kompetensi', [AdminController::class, 'kompetensiPage'])->name('web.admin.kompetensi.index');
+Route::group(['prefix' => 'kompetensi'], function () {
+    Route::get('/', [AdminController::class, 'competencyPage'])->name('web.admin.competency.index');
+});
 
-    Route::get('/kelas', [AdminController::class, 'kelasPage'])->name('web.admin.kelas.index');
+Route::group(['prefix' => 'kelas'], function () {
+    Route::get('/', [AdminController::class, 'classroomPage'])->name('web.admin.classroom.index');
+});
 
-    Route::get('/siswa', [AdminController::class, 'siswaPage'])->name('web.admin.siswa.index');
+Route::group(['prefix' => 'siswa'], function () {
+    Route::get('/', [AdminController::class, 'studentPage'])->name('web.admin.student.index');
 });

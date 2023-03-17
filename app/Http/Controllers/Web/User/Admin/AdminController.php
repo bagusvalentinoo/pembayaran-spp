@@ -11,28 +11,38 @@ class AdminController extends WebController
         $user = auth()->user();
 
         return view('user.admin.dashboard.index', [
-            "title" => 'Dashboard'
+            "title" => 'Dashboard',
+            'user' => $user
         ]);
     }
 
-    public function kompetensiPage()
+    public function competencyPage()
     {
+        $user = auth()->user();
+
         return view('user.admin.kompetensi.index', [
-            "title" => 'Kompetensi'
+            "title" => 'Kompetensi',
+            'user' => $user
         ]);
     }
 
-    public function kelasPage()
+    public function classroomPage()
     {
+        $user = auth()->user();
+
         return view('user.admin.kelas.index', [
-            "title" => 'Kelas'
+            "title" => 'Kelas',
+            'user' => $user
         ]);
     }
 
-    public function siswaPage()
+    public function studentPage()
     {
+        $user = auth()->user();
+
         return view('user.admin.siswa.index', [
-            "title" => 'Siswa'
+            "title" => 'Siswa',
+            'user' => $user
         ]);
     }
 }

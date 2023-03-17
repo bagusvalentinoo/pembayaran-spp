@@ -7,6 +7,7 @@ use App\Models\User\Officer;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class School extends Model
@@ -16,6 +17,7 @@ class School extends Model
     protected $table = 'schools';
 
     protected $fillable = [
+        'school_type_id',
         'npsn',
         'address',
         'postal_code',
@@ -65,5 +67,15 @@ class School extends Model
     public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class);
+    }
+
+    /**
+     * School Type Relation
+     *
+     * @return BelongsTo
+     */
+    public function schoolType(): BelongsTo
+    {
+        return $this->belongsTo(SchoolType::class, 'school_type_id');
     }
 }

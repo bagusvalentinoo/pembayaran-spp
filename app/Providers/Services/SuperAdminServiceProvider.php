@@ -4,6 +4,8 @@ namespace App\Providers\Services;
 
 use App\Services\SuperAdmin\Admin\AdminService;
 use App\Services\SuperAdmin\Admin\Impl\AdminServiceImpl;
+use App\Services\SuperAdmin\Dashboard\DashboardService;
+use App\Services\SuperAdmin\Dashboard\Impl\DashboardServiceImpl;
 use App\Services\SuperAdmin\School\Impl\SchoolServiceImpl;
 use App\Services\SuperAdmin\School\SchoolService;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -14,6 +16,7 @@ class SuperAdminServiceProvider extends ServiceProvider implements DeferrablePro
     public array $singletons = [
         SchoolService::class => SchoolServiceImpl::class,
         AdminService::class => AdminServiceImpl::class,
+        DashboardService::class => DashboardServiceImpl::class,
     ];
 
     /**
@@ -26,6 +29,7 @@ class SuperAdminServiceProvider extends ServiceProvider implements DeferrablePro
         return [
             SchoolService::class,
             AdminService::class,
+            DashboardService::class,
         ];
     }
 }

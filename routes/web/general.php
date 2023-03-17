@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('/redirect', [AuthController::class, 'authRedirect'])->name('web.general.auth.authRedirect');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('web.general.auth.logout');
 });

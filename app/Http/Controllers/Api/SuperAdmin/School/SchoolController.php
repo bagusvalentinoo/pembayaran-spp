@@ -20,6 +20,21 @@ class SchoolController extends ApiController
         $this->adminService = $adminService;
     }
 
+    public function index(Request $request)
+    {
+        $schools = $this->schoolService->getSchools($request);
+
+        return $this->makeJsonResponse(
+            $this->makeResponsePayload()
+                ->setMessageFromPurpose('get')
+                ->setStatusCode(ResponseAlias::HTTP_OK)
+                ->setMessage('Berhasil mendapatkan data sekolah')
+                ->setData([
+                    'schools' => $schools
+                ])
+        );
+    }
+
     /**
      * Create New School Instead of Admin User
      *

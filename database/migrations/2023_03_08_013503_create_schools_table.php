@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('school_type_id');
             $table->string('npsn');
             $table->text('address');
             $table->string('postal_code');
@@ -20,6 +21,12 @@ return new class extends Migration {
             $table->string('email')->unique()->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
+
+            $table->foreign('school_type_id')
+                ->references('id')
+                ->on('school_types')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

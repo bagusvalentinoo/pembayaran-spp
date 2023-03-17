@@ -90,9 +90,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web'])
             ->group(base_path('routes/web/general.php'));
 
+        // Web Super Admin Route
+        Route::prefix('super-admin')
+            ->middleware(['web', 'auth', 'role:Super Admin'])
+            ->group(base_path('routes/web/super_admin.php'));
+
         // Web Admin Route
         Route::prefix('admin')
-            ->middleware(['web'])
+            ->middleware(['web', 'auth', 'role:Admin'])
             ->group(base_path('routes/web/admin.php'));
 
         // Web Petugas Route

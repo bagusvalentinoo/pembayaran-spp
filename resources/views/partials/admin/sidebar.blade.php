@@ -64,36 +64,27 @@
             </a>
         </li>
 
-        <!-- Layouts -->
+        <!-- Menu -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pages</span>
+            <span class="menu-header-text">Menus</span>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.kompetensi.index' ? 'active' : '' }}">
-            <a href="{{ route('web.admin.kompetensi.index') }}" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.competency.index' ? 'active' : '' }}">
+            <a href="{{ route('web.admin.competency.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Kompetensi</div>
             </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.kelas.index' ? 'active' : '' }}">
-            <a href="{{ route('web.admin.kelas.index') }}" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.classroom.index' ? 'active' : '' }}">
+            <a href="{{ route('web.admin.classroom.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Kelas</div>
             </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.siswa.index' ? 'active' : '' }}">
-            <a href="{{ route('web.admin.siswa.index') }}" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.student.index' ? 'active' : '' }}">
+            <a href="{{ route('web.admin.student.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Siswa</div>
             </a>
         </li>
-
-
-
-        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-        </div>
-        <div class="ps__rail-y" style="top: 0px; height: 581px; right: 4px;">
-            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 378px;"></div>
-        </div>
     </ul>
 </aside>

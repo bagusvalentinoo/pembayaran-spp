@@ -26,4 +26,10 @@ class AuthController extends Controller
     {
         return redirect($this->authService->getAuthUrlRedirectByRole(request()->user()));
     }
+
+    public function logout()
+    {
+        $this->authService->logout();
+        return to_route('web.public.auth.loginPage');
+    }
 }

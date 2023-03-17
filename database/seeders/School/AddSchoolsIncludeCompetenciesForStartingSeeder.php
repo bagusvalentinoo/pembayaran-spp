@@ -3,6 +3,7 @@
 namespace Database\Seeders\School;
 
 use App\Models\School\School;
+use App\Models\School\SchoolType;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Ramsey\Uuid\Uuid;
@@ -15,8 +16,10 @@ class AddSchoolsIncludeCompetenciesForStartingSeeder extends Seeder
     public function run(): void
     {
         $carbonNow = Carbon::now();
+        $schoolTypeSmkId = SchoolType::where('name', 'SMK')->first()->id;
 
         $schoolSmkOneCimahi = (new School())->create([
+            'school_type_id' => $schoolTypeSmkId,
             'npsn' => '20224136',
             'address' => 'Jl. Mahar Martanegara No.48, Utama, Kec. Cimahi Sel., Kota Cimahi, Jawa Barat 40521',
             'postal_code' => '40521',

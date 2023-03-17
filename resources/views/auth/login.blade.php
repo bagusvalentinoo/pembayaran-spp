@@ -18,12 +18,20 @@
 
     {{-- Custom CSS Style --}}
     <style type="text/css">
+        .d-block {
+            display: block !important;
+        }
+
         .fs-16 {
             font-size: 16px !important;
         }
 
         .text-center {
             text-align: center !important;
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
         }
     </style>
 </head>
@@ -32,7 +40,7 @@
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form id="form-login" class="sign-in-form">
+                <form id="form-login" class="sign-in-form need-vali">
                     <h2 class="title">Login</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
@@ -557,20 +565,74 @@
     {{-- JQuery JS --}}
     <script src="{{ asset('assets/js/JQuery/jquery.min.js') }}"></script>
 
-    <script type="application/javascript">
-        $(document).ready(function() {
-            const sign_in_btn = $("#sign-in-btn")
-            const sign_up_btn = $("#sign-up-btn")
-            const container = $(".container")
+    {{-- Sweet Alert --}}
+    <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
 
-            sign_up_btn.click(function() {
-                container.addClass("sign-up-mode")
-            })
+    <script>
+        (function() {
+            "use strict";
 
-            sign_in_btn.click(function() {
-                container.removeClass("sign-up-mode")
+            const form = document.getElementById('form-login')
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault()
+
+                const isFormValid = form.checkValidity();
+                form.classList.add('was-validated')
+
+                if (!isFormValid) return event.stopPropagation()
+
+                const inputUsername = $('#form-login-input-username')
+                const inputPassword = $('#form-login-input-password')
+                const btnSubmit = $('#form-login-btn-submit')
+
+                btnSubmit.attr("disabled", true)
+                btnSubmit.html('Login...')
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('api.public.login') }}",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        username: inputUsername.val(),
+                        password: inputPassword.val(),
+                        remember_me: $('#form-login-input-remember-me:checked').length > 0
+                    }),
+                    dataType: 'json',
+                    success: function(response) {
+                        const responseJson = response.responseJson
+
+                        if (response.status_code === 200) {
+                            window.location = "{{ route('web.general.auth.authRedirect') }}"
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: responseJson.message_code
+                            })
+                        }
+                    },
+                    error: function(response) {
+                        const responseJson = response.responseJSON
+
+                        if (response.status === 422) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validasi Error',
+                                text: responseJson.message
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: responseJson.message
+                            })
+                        }
+                    }
+                })
+
+                btnSubmit.html('Login')
+                btnSubmit.removeAttr("disabled")
             })
-        })
+        })()
     </script>
 </body>
 

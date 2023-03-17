@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- Title Application --}}
     <title>{{ config('app.name') }} | {{ $title }}</title>
 
     <!-- Icons. Uncomment required icon fonts -->
@@ -19,68 +20,51 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-
+    {{-- Custom CSS Style --}}
+    @yield('style')
 
 </head>
 
 <body>
-
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-
             {{-- Sidebar --}}
             @include('partials.admin.sidebar')
             {{-- End Sidebar --}}
             <div class="layout-page">
-                <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
-
-                        @yield('content')
-                    </div>
+                    @include('partials.admin.header')
+                    @yield('content')
+                    @include('partials.admin.footer')
+                    <div class="content-backdrop fade"></div>
                 </div>
-                <!-- / Content -->
-
-                <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
         </div>
-    </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
 
+    <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/main/config.js') }}"></script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
     <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
 
-    <!-- Page JS -->
-    <script src="{{ asset('assets/js/main/dashboards-analytics.js') }}"></script>
-
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script async defer src="{{ asset('assets/js/main/buttons.js') }}"></script>
+
+    {{-- Custom JS --}}
+    @yield('script')
+
 </body>
 
 </html>

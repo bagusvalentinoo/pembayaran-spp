@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\SuperAdmin\Admin\AdminController;
+use App\Http\Controllers\Api\SuperAdmin\Dashboard\DashboardController;
 use App\Http\Controllers\Api\SuperAdmin\School\SchoolController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('api.super-admin.dashboard.index');
+});
 
 Route::group(['prefix' => 'admins'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('api.super-admin.admin.index');
