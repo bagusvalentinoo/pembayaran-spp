@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\SuperAdmin\School;
 
+use App\Exceptions\Http\FormattedResponseException;
 use App\Http\Controllers\Api\ApiController;
-use App\Mail\User\SuperAdmin\School\SchoolMail;
 use App\Services\SuperAdmin\Admin\AdminService;
 use App\Services\SuperAdmin\School\SchoolService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class SchoolController extends ApiController
@@ -24,20 +24,18 @@ class SchoolController extends ApiController
      * Create New School Instead of Admin User
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \App\Exceptions\Http\FormattedResponseException
+     * @return JsonResponse
+     * @throws FormattedResponseException
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $randomPassword = $this->setGeneratedRandomPassword(10);
-        $school = $this->schoolService->createSchool($request);
-        $admin = $this->adminService->createAdmin($request, $school, $randomPassword);
-        $data = [
-            'subject' => 'Akun Pembayaran SPP',
-            'username' => $admin->username,
-            'password' => $randomPassword
-        ];
-        Mail::to($admin->email)->send(new SchoolMail($data));
+        try {
+            $randomPassword = $this->setGeneratedRandomPassword(10);
+            $school = $this->schoolService->createSchool($request);
+            $this->adminService->createAdmin($request, $school, $randomPassword);
+        } catch (\Throwable $th) {
+            return $this->returnCatchThrowableToJsonResponse($th);
+        }
 
         return $this->makeJsonResponse(
             $this->makeResponsePayload()

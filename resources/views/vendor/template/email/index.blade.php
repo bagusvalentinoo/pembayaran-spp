@@ -320,10 +320,10 @@
     </svg>
 </div>
 <div class="d-flex align-items-center">
-    <h5>Username : {{ $data['username'] }}</h5>
+    <h3>Username : {{ $data['username'] }}</h3>
 </div>
 <div class="d-flex align-items-center">
-    <h5>Password : {{ $data['password'] }}</h5>
+    <h3>Password : {{ $data['password'] }}</h3>
 </div>
 </body>
 </html>

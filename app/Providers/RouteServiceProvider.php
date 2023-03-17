@@ -101,8 +101,8 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/web/officer.php'));
 
         // Web Siswa Route
-        Route::prefix('siswa', 'auth', 'role:Siswa')
-            ->middleware(['web'])
+        Route::prefix('siswa')
+            ->middleware(['web', 'auth', 'role:Siswa'])
             ->group(base_path('routes/web/student.php'));
     }
 

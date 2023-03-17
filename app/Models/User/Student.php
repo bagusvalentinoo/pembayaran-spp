@@ -27,7 +27,7 @@ class Student extends Model
 
     /**
      * User Relation
-     * 
+     *
      * @return BelongsTo
      */
     public function user(): BelongsTo
@@ -37,10 +37,10 @@ class Student extends Model
 
     /**
      * Classroom Relation
-     * 
+     *
      * @return BelongsTo
      */
-    public function classroom()
+    public function classroom(): BelongsTo
     {
         return $this->belongsTo(Classroom::class);
     }

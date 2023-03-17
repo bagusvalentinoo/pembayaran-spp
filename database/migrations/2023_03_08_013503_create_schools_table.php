@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->text('address');
             $table->string('postal_code');
             $table->string('name');
-            $table->char('telp_number');
+            $table->string('telp_number');
             $table->string('email')->unique()->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

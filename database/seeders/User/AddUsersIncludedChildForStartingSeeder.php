@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\User;
 
+use App\Models\School\Classroom;
 use App\Models\School\School;
 use App\Models\User\User;
 use Carbon\Carbon;
@@ -20,6 +21,8 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
         $carbonNow = Carbon::now();
         $faker = Factory::create('id_ID');
         $schoolSmkOneCimahiId = School::where('name', 'SMK Negeri 1 Cimahi')->first()->id;
+        $classroomSmkOneCimahi12RplAId = Classroom::where('name', '12 RPL A')->first()->id;
+        $classroomSmkOneCimahi12RplBId = Classroom::where('name', '12 RPL B')->first()->id;
 
         $userSuperAdmin = (new User())->create(
             [
@@ -46,11 +49,11 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
         $userAdmin = (new User())->create(
             [
                 'id' => Uuid::uuid4(),
-                'name' => 'Admin 01',
-                'username' => 'admin_01',
-                'email' => 'admin01@gmail.com',
+                'name' => 'SMKN 1 Cimahi Admin',
+                'username' => 'smkn1_cimahi_admin_01',
+                'email' => 'smkn1cimahi@gmail.com',
                 'photo_profile' => 'public/images/user/admin/photo_profile/default_photo_profile.jpg',
-                'password' => Hash::make('admin_01'),
+                'password' => Hash::make('smkn1_cimahi_admin_01'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
         );
@@ -60,7 +63,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
             [
                 'user_id' => $userAdmin->id,
                 'school_id' => $schoolSmkOneCimahiId,
-                'name' => 'Admin 01',
+                'name' => 'SMKN 1 Cimahi Admi',
                 'phone_number' => $faker->phoneNumber(),
                 'address' => $faker->address()
             ]
@@ -82,6 +85,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
         $userOfficer->officer()->create(
             [
                 'user_id' => $userOfficer->id,
+                'school_id' => $schoolSmkOneCimahiId,
                 'name' => 'Petugas 01',
                 'phone_number' => $faker->phoneNumber(),
                 'address' => $faker->address()
@@ -105,6 +109,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
         $userStudentOne->student()->create(
             [
                 'user_id' => $userStudentOne->id,
+                'classroom_id' => $classroomSmkOneCimahi12RplAId,
                 'nisn' => '0051322510',
                 'nis' => '201114934',
                 'address' => $faker->address(),
@@ -129,6 +134,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
         $userStudentTwo->student()->create(
             [
                 'user_id' => $userStudentTwo->id,
+                'classroom_id' => $classroomSmkOneCimahi12RplBId,
                 'nisn' => '0051322511',
                 'nis' => '201114935',
                 'address' => $faker->address(),
