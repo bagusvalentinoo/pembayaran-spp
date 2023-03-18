@@ -2,6 +2,7 @@
 
 namespace App\Models\School;
 
+use App\Models\Payment\Spp;
 use App\Models\User\Admin;
 use App\Models\User\Officer;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -67,6 +68,16 @@ class School extends Model
     public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class);
+    }
+
+    /**
+     * Spps Relation
+     *
+     * @return HasMany
+     */
+    public function spps(): HasMany
+    {
+        return $this->hasMany(Spp::class);
     }
 
     /**

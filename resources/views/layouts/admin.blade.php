@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Title Application --}}
     <title>{{ config('app.name') }} | {{ $title }}</title>
 
@@ -32,8 +33,8 @@
             @include('partials.admin.sidebar')
             {{-- End Sidebar --}}
             <div class="layout-page">
+                @include('partials.admin.header')
                 <div class="content-wrapper">
-                    @include('partials.admin.header')
                     @yield('content')
                     @include('partials.admin.footer')
                     <div class="content-backdrop fade"></div>
@@ -52,7 +53,7 @@
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
 

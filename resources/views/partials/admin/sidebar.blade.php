@@ -1,6 +1,7 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" data-bg-class="bg-menu-theme">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="{{ route('web.admin.dashboard.index') }}" class="app-brand-link">
+            {{-- Logo --}}
             <span class="app-brand-logo demo">
                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -48,14 +49,12 @@
             <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
         </a>
 
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="bx bx-chevron-left bx-sm align-middle"></i>
         </a>
     </div>
-
     <div class="menu-inner-shadow"></div>
-
-    <ul class="menu-inner py-1 ps ps--active-y">
+    <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item {{ Route::currentRouteName() === 'web.admin.dashboard.index' ? 'active' : '' }}">
             <a href="{{ route('web.admin.dashboard.index') }}" class="menu-link">
@@ -64,26 +63,25 @@
             </a>
         </li>
 
-        <!-- Menu -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Menus</span>
+        <li class="menu-header small text-uppercase text-bold">
+            <span class="menu-header-text">Menu</span>
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.admin.competency.index' ? 'active' : '' }}">
             <a href="{{ route('web.admin.competency.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Kompetensi</div>
+                <i class='menu-icon bx bxs-school'></i>
+                <div data-i18n="Basic">Kompetensi</div>
             </a>
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.admin.classroom.index' ? 'active' : '' }}">
             <a href="{{ route('web.admin.classroom.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Kelas</div>
+                <i class='menu-icon bx bxs-user-account'></i>
+                <div data-i18n="Basic">Kelas</div>
             </a>
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.admin.student.index' ? 'active' : '' }}">
             <a href="{{ route('web.admin.student.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Siswa</div>
+                <i class='menu-icon bx bxs-user-account'></i>
+                <div data-i18n="Basic">Siswa</div>
             </a>
         </li>
     </ul>

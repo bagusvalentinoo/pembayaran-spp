@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\User\Student\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/dashboard', [StudentController::class, 'dashboardPage'])->name('web.student.dashboard.index');
+
+Route::get('/riwayat', [StudentController::class, 'historyPage'])->name('web.student.history.index');

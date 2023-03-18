@@ -19,18 +19,6 @@ class AddSchoolTypesForStartingSeeder extends Seeder
         SchoolType::insert([
             [
                 'id' => Uuid::uuid4(),
-                'name' => 'SD',
-                'created_at' => $carbonNow,
-                'updated_at' => $carbonNow
-            ],
-            [
-                'id' => Uuid::uuid4(),
-                'name' => 'SMP',
-                'created_at' => $carbonNow,
-                'updated_at' => $carbonNow
-            ],
-            [
-                'id' => Uuid::uuid4(),
                 'name' => 'SMA',
                 'created_at' => $carbonNow,
                 'updated_at' => $carbonNow

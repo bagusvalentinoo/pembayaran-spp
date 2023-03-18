@@ -37,6 +37,7 @@ class SchoolServiceImpl implements SchoolService
     {
         $school = $this->schoolModel->create(
             array_filter([
+                'school_type_id' => $request->input('school_type_id'),
                 'npsn' => $request->input('school_npsn'),
                 'address' => $request->input('school_address'),
                 'postal_code' => $request->input('school_postal_code'),

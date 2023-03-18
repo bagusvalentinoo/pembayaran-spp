@@ -10,17 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('spp', function (Blueprint $table) {
+        Schema::create('months', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('school_id');
-            $table->double('price');
+            $table->string('name');
             $table->timestamps();
-
-            $table->foreign('school_id')
-                ->references('id')
-                ->on('schools')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
     }
 
@@ -29,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('spps');
+        Schema::dropIfExists('months');
     }
 };

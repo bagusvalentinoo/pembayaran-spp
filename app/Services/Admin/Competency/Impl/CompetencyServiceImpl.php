@@ -38,7 +38,7 @@ class CompetencyServiceImpl implements CompetencyService
             function ($q) {
                 $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated());
             }
-        )->get();
+        )->withCount(['classrooms'])->get();
 
         return $competencies;
     }

@@ -19,50 +19,6 @@ class DashboardServiceImpl implements DashboardService
     }
 
     /**
-     * Get Amount SD Schools
-     *
-     * @return mixed
-     */
-    public function getAmountSDSchools(): mixed
-    {
-        $schoolTypeSDId = $this->schoolTypeModel->where(
-            function ($q) {
-                $q->where('name', 'SD');
-            }
-        )->first()->id;
-
-        $schools = $this->schoolModel->where(
-            function ($q) use ($schoolTypeSDId) {
-                $q->where('school_type_id', $schoolTypeSDId);
-            }
-        )->count();
-
-        return $schools;
-    }
-
-    /**
-     * Get Amount SMP Schools
-     *
-     * @return mixed
-     */
-    public function getAmountSMPSchools(): mixed
-    {
-        $schoolTypeSMPId = $this->schoolTypeModel->where(
-            function ($q) {
-                $q->where('name', 'SMP');
-            }
-        )->first()->id;
-
-        $schools = $this->schoolModel->where(
-            function ($q) use ($schoolTypeSMPId) {
-                $q->where('school_type_id', $schoolTypeSMPId);
-            }
-        )->count();
-
-        return $schools;
-    }
-
-    /**
      * Get Amount SMA Schools
      *
      * @return mixed

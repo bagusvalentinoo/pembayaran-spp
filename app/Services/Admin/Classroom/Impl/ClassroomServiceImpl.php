@@ -34,7 +34,7 @@ class ClassroomServiceImpl implements ClassroomService
      */
     public function getClassrooms(Request $request)
     {
-        $classrooms = $this->classroomModel->where(
+        $classrooms = $this->classroomModel->with(['competency'])->where(
             function ($q) {
                 $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated());
             }

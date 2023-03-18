@@ -25,8 +25,6 @@ class DashboardController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $amountSDSchools = $this->dashboardService->getAmountSDSchools();
-        $amountSMPSchools = $this->dashboardService->getAmountSMPSchools();
         $amountSMASchools = $this->dashboardService->getAmountSMASchools();
         $amountSMKSchools = $this->dashboardService->getAmountSMKSchools();
         $amountAdmins = $this->dashboardService->getAmountAdmins();
@@ -37,8 +35,6 @@ class DashboardController extends ApiController
                 ->setStatusCode(ResponseAlias::HTTP_OK)
                 ->setMessage('Berhasil mendapatkan data jumlah Sekolah')
                 ->setData([
-                    'amountSDSchools' => $amountSDSchools,
-                    'amountSMPSchools' => $amountSMPSchools,
                     'amountSMASchools' => $amountSMASchools,
                     'amountSMKSchools' => $amountSMKSchools,
                     'amountAdmins' => $amountAdmins
