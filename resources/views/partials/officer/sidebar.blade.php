@@ -68,13 +68,13 @@
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.officer.payment.index' ? 'active' : '' }}">
             <a href="{{ route('web.officer.payment.index') }}" class="menu-link">
-                <i class='menu-icon bx bxs-school'></i>
+                <i class='menu-icon bx bx-wallet'></i>
                 <div data-i18n="Basic">Pembayaran</div>
             </a>
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.officer.history.index' ? 'active' : '' }}">
             <a href="{{ route('web.officer.history.index') }}" class="menu-link">
-                <i class='menu-icon bx bxs-school'></i>
+                <i class='menu-icon bx bx-history'></i>
                 <div data-i18n="Basic">Riwayat</div>
             </a>
         </li>

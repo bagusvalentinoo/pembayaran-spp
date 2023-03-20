@@ -29,3 +29,8 @@ Route::group(['prefix' => 'kelas'], function () {
 Route::group(['prefix' => 'siswa'], function () {
     Route::get('/', [AdminController::class, 'studentPage'])->name('web.admin.student.index');
 });
+
+Route::group(['prefix' => 'spp'], function () {
+    Route::get('/', [AdminController::class, 'sppPage'])->name('web.admin.spp.index');
+});
+

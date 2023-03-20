@@ -30,109 +30,148 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row">
-            <div class="col-12">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-header-title fs-30">Data Kompetensi</h4>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <select id="filter-data" class="form-select">
-                                    <option>-- Filter --</option>
-                                    <option value="competencies">Berdasarkan Kompetensi</option>
-                                </select>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-sm ml-auto fs-18" data-bs-toggle="modal"
-                                data-bs-target="#addClassroomModal">Tambah Kelas</button>
+                    <div class="card-body">
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text" id="basic-addon-search31">
+                                <i class="bx bx-search"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search..." aria-label="Search..."
+                                aria-describedby="basic-addon-search31">
                         </div>
-                        {{-- Create Modal --}}
-                        <div class="modal fade" id="addClassroomModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title fs-20" id="addClassroomModalTitle">Tambah Kelas</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form id="form-classroom-create">
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12 mb-3">
-                                                    <select id="select-competencies" class="form-select">
-                                                    </select>
-                                                    <input type="text" id="input-classrooms" class="form-control"
-                                                        placeholder="Masukan Nama Kelas">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">
-                                                Tutup
-                                            </button>
-                                            <button id="btn-save" type="submit" class="btn btn-primary">Simpan</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- Edit Modal --}}
-                        <div class="modal fade" id="editClassroomsModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title fs-20" id="editClassroomsModalTitle">Ubah Kelas</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form id="form-classroom-edit">
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12 mb-3">
-                                                    <select id="select-competencies" class="form-select">
-                                                    </select>
-                                                    <input type="text" id="inputEditClassroom" class="form-control"
-                                                        placeholder="Masukan Nama Kelas">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">
-                                                Tutup
-                                            </button>
-                                            <button id="btn-update" type="submit" class="btn btn-primary">Update</button>
-                                        </div>
-                                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="row d-flex align-items-center justify-content-end">
+                    <div class="col-lg-5 col-md-8 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text" id="basic-addon-search31">
+                                        <i class="bx bx-filter"></i>
+                                    </span>
+                                    <select class="form-select">
+                                        <option selected>-- Filter --</option>
+                                        <option value="1">Berdasarkan Kelas</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-bordered" id="student-table">
-                            <thead>
-                                <tr>
-                                    <th>Nama Kelas</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-classroom-list-body">
-                            </tbody>
-                        </table>
+                    <div class="col-lg-auto col-md-auto col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#addClassroomModal">
+                                    Tambah Kelas
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-header-title fs-30">Data Kompetensi</h4>
+                            {{-- Create Modal --}}
+                            <div class="modal fade" id="addClassroomModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fs-20" id="addClassroomModalTitle">Tambah Kelas</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form id="form-classroom-create">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-12 mb-3">
+                                                        <select id="select-competencies" class="form-select">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <input type="text" id="input-classrooms" class="form-control"
+                                                            placeholder="Masukan Nama Kelas">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">
+                                                    Tutup
+                                                </button>
+                                                <button id="btn-save" type="submit"
+                                                    class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Edit Modal --}}
+                            <div class="modal fade" id="editClassroomsModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title fs-20" id="editClassroomsModalTitle">Ubah Kelas</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form id="form-classroom-edit">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-12 mb-3">
+                                                        <select id="select-competencies" class="form-select">
+                                                        </select>
+                                                        <input type="text" id="inputEditClassroom" class="form-control"
+                                                            placeholder="Masukan Nama Kelas">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">
+                                                    Tutup
+                                                </button>
+                                                <button id="btn-update" type="submit"
+                                                    class="btn btn-primary">Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered" id="student-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Kelas</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-classroom-list-body">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+    @endsection
 
-@section('script')
-    {{-- JQuery --}}
-    <script src="{{ asset('assets/js/JQuery/jquery.min.js') }}"></script>
-    {{-- Sweet Alert --}}
-    <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
+    @section('script')
+        {{-- JQuery --}}
+        <script src="{{ asset('assets/js/JQuery/jquery.min.js') }}"></script>
+        {{-- Sweet Alert --}}
+        <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
 
-    <script type="application/javascript">
+        <script type="application/javascript">
         fetchAllClassrooms()
         fetchAllCompetencies()
 
@@ -146,7 +185,7 @@
                 success: function (response) {
                     if (response.status_code === 200) {
                         const competencies = response.data.competencies
-                        
+
                         $('#select-competencies').empty()
                         $('#select-competencies').append(`<option>-- Pilih Kompetensi --</option>`)
                         competencies.forEach(function (competency, index) {
@@ -180,7 +219,7 @@
                 success: function (response) {
                     if (response.status_code === 200) {
                         const classrooms = response.data.classrooms
-                        
+
                         if(classrooms.length === 0){
                             let htmlTableBody = ''
 
@@ -232,7 +271,7 @@
 
         $('#form-classroom-create').on('submit', function (event) {
             event.preventDefault()
-            
+
             const inputClassroom = $('#input-classrooms').val()
             const selectClassroom = $('#select-competencies').val()
             const btnSave = $('#btn-save')
@@ -343,4 +382,4 @@
             })
         })
     </script>
-@endsection
+    @endsection
