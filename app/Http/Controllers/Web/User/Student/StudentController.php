@@ -9,10 +9,13 @@ use Illuminate\Contracts\View\View;
 
 class StudentController extends WebController
 {
+
     /**
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     * Dashboard Page
+     *
+     * @return View|Factory|Application
      */
-    public function dashboardPage()
+    public function dashboardPage(): View|Factory|Application
     {
         $user = auth()->user();
 
@@ -22,7 +25,12 @@ class StudentController extends WebController
         ]);
     }
 
-    public function historyPage()
+    /**
+     * History Page
+     *
+     * @return View|Factory|Application
+     */
+    public function historyPage(): View|Factory|Application
     {
         $user = auth()->user();
 

@@ -7,6 +7,7 @@ use App\Services\SuperAdmin\School\SchoolService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class SchoolServiceImpl implements SchoolService
 {
@@ -19,12 +20,14 @@ class SchoolServiceImpl implements SchoolService
     }
 
     /**
+     * Get Schools
+     *
      * @param Request $request
      * @return Builder[]|Collection
      */
     public function getSchools(Request $request): Collection|array
     {
-        return $this->schoolModel->query()->with(['schoolType'])->get();
+        return $this->schoolModel->query()->with(['schoolType'])->orderBy('school_type_id')->get();
     }
 
     /**
@@ -33,11 +36,11 @@ class SchoolServiceImpl implements SchoolService
      * @param Request $request
      * @return mixed
      */
-    public function createSchool(Request $request)
+    public function createSchool(Request $request): mixed
     {
         $school = $this->schoolModel->create(
             array_filter([
-                'school_type_id' => $request->input('school_type_id'),
+                'school_type_id' => $request->input('school_type'),
                 'npsn' => $request->input('school_npsn'),
                 'address' => $request->input('school_address'),
                 'postal_code' => $request->input('school_postal_code'),
@@ -47,6 +50,64 @@ class SchoolServiceImpl implements SchoolService
                 'status' => $request->input('school_status') ?? null
             ], customArrayFilter())
         );
+
+        return $school;
+    }
+
+    /**
+     * Find School
+     *
+     * @param string|int $param
+     * @return mixed
+     * @throws \Exception
+     */
+    public function findSchool(string|int $param): mixed
+    {
+        $school = $this->schoolModel->find($param);
+
+        if (!$school)
+            throw new \Exception('Data Sekolah tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+
+        return $school;
+    }
+
+    /**
+     * Update School
+     *
+     * @param Request $request
+     * @param School $school
+     * @return School
+     */
+    public function updateSchool(Request $request, School $school): School
+    {
+        $school->update(
+            array_filter([
+                'npsn' => $request->input('npsn'),
+                'address' => $request->input('address'),
+                'postal_code' => $request->input('postal_code'),
+                'name' => $request->input('name'),
+                'telp_number' => $request->input('telp_number'),
+                'email' => $request->input('email'),
+                'status' => $request->input('status')
+            ], customArrayFilter())
+        );
+
+        return $school->refresh();
+    }
+
+    /**
+     * Delete School Include Their Account
+     *
+     * @param School $school
+     * @return School
+     */
+    public function deleteSchool(School $school): School
+    {
+        foreach ($school->admins as $admin) {
+            $admin->user->delete();
+        }
+        $school->admins()->delete();
+        $school->delete();
 
         return $school;
     }

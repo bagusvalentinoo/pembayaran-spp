@@ -20,7 +20,14 @@ class SchoolController extends ApiController
         $this->adminService = $adminService;
     }
 
-    public function index(Request $request)
+    /**
+     * Get Schools Data
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws FormattedResponseException
+     */
+    public function index(Request $request): JsonResponse
     {
         $schools = $this->schoolService->getSchools($request);
 
@@ -31,6 +38,32 @@ class SchoolController extends ApiController
                 ->setMessage('Berhasil mendapatkan data sekolah')
                 ->setData([
                     'schools' => $schools
+                ])
+        );
+    }
+
+    /**
+     * Show Data School
+     *
+     * @param string|int $param
+     * @return JsonResponse
+     * @throws FormattedResponseException
+     */
+    public function show(string|int $param): JsonResponse
+    {
+        try {
+            $school = $this->schoolService->findSchool($param);
+        } catch (\Throwable $th) {
+            return $this->returnCatchThrowableToJsonResponse($th);
+        }
+
+        return $this->makeJsonResponse(
+            $this->makeResponsePayload()
+                ->setMessageFromPurpose('get')
+                ->setStatusCode(ResponseAlias::HTTP_OK)
+                ->setMessage('Berhasil mendapatkan data sekolah')
+                ->setData([
+                    'school' => $school
                 ])
         );
     }
@@ -57,6 +90,55 @@ class SchoolController extends ApiController
                 ->setMessageFromPurpose('create')
                 ->setStatusCode(ResponseAlias::HTTP_CREATED)
                 ->setMessage('Data Sekolah dan Admin berhasil ditambahkan')
+        );
+    }
+
+    /**
+     * Update School
+     *
+     * @param Request $request
+     * @param string|int $param
+     * @return JsonResponse
+     * @throws FormattedResponseException
+     */
+    public function update(Request $request, string|int $param): JsonResponse
+    {
+        try {
+            $school = $this->schoolService->findSchool($param);
+            $this->schoolService->updateSchool($request, $school);
+        } catch (\Throwable $th) {
+            return $this->returnCatchThrowableToJsonResponse($th);
+        }
+
+        return $this->makeJsonResponse(
+            $this->makeResponsePayload()
+                ->setMessageFromPurpose('update')
+                ->setStatusCode(ResponseAlias::HTTP_OK)
+                ->setMessage('Berhasil memperbaharui data Sekolah')
+        );
+    }
+
+    /**
+     * Delete School
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws FormattedResponseException
+     */
+    public function destroy(Request $request): JsonResponse
+    {
+        try {
+            $school = $this->schoolService->findSchool($request->input('id'));
+            $this->schoolService->deleteSchool($school);
+        } catch (\Throwable $th) {
+            return $this->returnCatchThrowableToJsonResponse($th);
+        }
+
+        return $this->makeJsonResponse(
+            $this->makeResponsePayload()
+                ->setMessageFromPurpose('delete')
+                ->setStatusCode(ResponseAlias::HTTP_OK)
+                ->setMessage('Berhasil menghapus data Sekolah beserta Akun')
         );
     }
 }

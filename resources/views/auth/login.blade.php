@@ -51,21 +51,6 @@
                         <input id="form-login-input-password" type="password" placeholder="Password" />
                     </div>
                     <button type="submit" id="form-login-btn-submit" class="btn solid fs-16">Login</button>
-                    <p class="social-text text-center">Atau login dengan platform sosial media dibawah ini!</p>
-                    <div class="social-media">
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
                 </form>
             </div>
         </div>

@@ -8,9 +8,13 @@ use App\Models\User\User;
 use App\Services\SuperAdmin\Admin\AdminService;
 use App\Traits\Services\ServiceResource;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class AdminServiceImpl implements AdminService
 {
@@ -28,9 +32,9 @@ class AdminServiceImpl implements AdminService
      * Get Admins
      *
      * @param Request $request
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return Builder[]|Collection
      */
-    public function getAdmins(Request $request)
+    public function getAdmins(Request $request): Collection|array
     {
         $admins = $this->adminModel->with(['school'])->get();
 
@@ -42,9 +46,10 @@ class AdminServiceImpl implements AdminService
      *
      * @param Request $request
      * @param $school
+     * @param $randomPassword
      * @return mixed
      */
-    public function createAdmin(Request $request, $school, $randomPassword)
+    public function createAdmin(Request $request, $school, $randomPassword): mixed
     {
         $carbonNow = Carbon::now();
         $strLowerSchoolName = $this->setStrReplace(' ', '', $school->name);
@@ -68,8 +73,8 @@ class AdminServiceImpl implements AdminService
             'user_id' => $userAdmin->id,
             'school_id' => $school->id,
             'name' => $userAdminName,
-            'phone_number' => $request->input('admin_phone_number'),
-            'address' => $request->input('admin_address')
+            'phone_number' => $school->telp_number,
+            'address' => $school->address
         ]);
 
         $data = [
@@ -80,5 +85,42 @@ class AdminServiceImpl implements AdminService
         Mail::to($userAdmin->email)->send(new SchoolMail($data));
 
         return $userAdmin;
+    }
+
+    /**
+     * Find Admin
+     *
+     * @param string|int $param
+     * @return mixed
+     * @throws Exception
+     */
+    public function findAdmin(string|int $param): mixed
+    {
+        $admin = $this->adminModel->find($param);
+
+        if (!$admin)
+            throw new Exception('Data Admin tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+
+        return $admin;
+    }
+
+    /**
+     * Update Admin
+     *
+     * @param Request $request
+     * @param Admin $admin
+     * @return Admin
+     */
+    public function updateAdmin(Request $request, Admin $admin): Admin
+    {
+        $admin->update(
+            array_filter([
+                'name' => $request->input('name'),
+                'phone_number' => $request->input('phone_number'),
+                'address' => $request->input('address')
+            ], customArrayFilter())
+        );
+
+        return $admin->refresh();
     }
 }

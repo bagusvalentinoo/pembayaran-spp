@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Other\AddAcademicYearsForStartingSeeder;
+use Database\Seeders\Other\AddMonthsForStartingSeeder;
 use Database\Seeders\Other\AddSemestersForStartingSeeder;
 use Database\Seeders\School\AddClassroomsForStartingSeeder;
 use Database\Seeders\School\AddSchoolsIncludeCompetenciesForStartingSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 AddUsersIncludedChildForStartingSeeder::class,
                 AddAcademicYearsForStartingSeeder::class,
                 AddSemestersForStartingSeeder::class,
+                AddMonthsForStartingSeeder::class,
             ]
         );
     }
