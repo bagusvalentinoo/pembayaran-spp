@@ -68,7 +68,7 @@
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.student.history.index' ? 'active' : '' }}">
             <a href="{{ route('web.student.history.index') }}" class="menu-link">
-                <i class='menu-icon bx bxs-school'></i>
+                <i class='menu-icon bx bx-history'></i>
                 <div data-i18n="Basic">Riwayat</div>
             </a>
         </li>

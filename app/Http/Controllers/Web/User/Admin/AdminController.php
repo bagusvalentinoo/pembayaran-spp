@@ -51,4 +51,14 @@ class AdminController extends WebController
             'user' => $user
         ]);
     }
+
+    public function sppPage()
+    {
+        $user = auth()->user();
+
+        return view('user.admin.spp.index', [
+            "title" => 'SPP',
+            'user' => $user
+        ]);
+    }
 }

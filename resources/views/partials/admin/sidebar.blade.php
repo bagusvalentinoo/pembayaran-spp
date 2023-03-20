@@ -80,8 +80,14 @@
         </li>
         <li class="menu-item {{ Route::currentRouteName() === 'web.admin.student.index' ? 'active' : '' }}">
             <a href="{{ route('web.admin.student.index') }}" class="menu-link">
-                <i class='menu-icon bx bxs-user-account'></i>
+                <i class='menu-icon bx bxs-graduation'></i>
                 <div data-i18n="Basic">Siswa</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() === 'web.admin.spp.index' ? 'active' : '' }}">
+            <a href="{{ route('web.admin.spp.index') }}" class="menu-link">
+                <i class='menu-icon bx bx-wallet'></i>
+                <div data-i18n="Basic">SSP</div>
             </a>
         </li>
     </ul>
