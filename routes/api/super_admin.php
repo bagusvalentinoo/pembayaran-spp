@@ -38,4 +38,3 @@ Route::group(['prefix' => 'admins'], function () {
     Route::get('/{param}', [AdminController::class, 'show'])->name('api.super-admin.admin.show');
     Route::put('/{param}', [AdminController::class, 'update'])->name('api.super-admin.admin.update');
 });
-

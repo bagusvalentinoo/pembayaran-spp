@@ -179,6 +179,129 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- Update School --}}
+                                <div class="modal fade" id="editSchoolModal" tabindex="-1" aria-hidden="true"
+                                    style="display: none;">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editSchoolModalTitle">Edit Sekolah</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="form-update-school">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label for="select-edit-type-school" class="form-label">
+                                                                Pilih Tipe Sekolah
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <select name="school_type" id="select-edit-type-school"
+                                                                class="form-select">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <hr class="flex-grow-1 mr-3 border-light">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-npsn-school" class="form-label">
+                                                                    NPSN Sekolah
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input name="npsn" type="text" class="form-control"
+                                                                    id="input-edit-npsn-school"
+                                                                    placeholder="Masukan NPSN Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-address-school" class="form-label">
+                                                                    Alamat Sekolah
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input name="address" type="text" class="form-control"
+                                                                    id="input-edit-address-school"
+                                                                    placeholder="Masukan Alamat Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-postal-code-school"
+                                                                    class="form-label">
+                                                                    Kode Pos
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input name="postal_code" type="text"
+                                                                    class="form-control"
+                                                                    id="input-edit-postal-code-school"
+                                                                    placeholder="Masukan Kode Pos Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-name-school" class="form-label">
+                                                                    Nama Sekolah
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input name="name" type="text" class="form-control"
+                                                                    id="input-edit-name-school"
+                                                                    placeholder="Masukan Nama Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-telephone-number-school"
+                                                                    class="form-label">
+                                                                    Nomor Telepon Sekolah
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input name="telp_number" type="text"
+                                                                    class="form-control"
+                                                                    id="input-edit-telephone-number-school"
+                                                                    placeholder="Masukan Nomor Telepon Sekolah Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-email-school" class="form-label">
+                                                                    Email Sekolah
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input name="email" type="text" class="form-control"
+                                                                    id="input-edit-email-school"
+                                                                    placeholder="Masukan Email Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="input-edit-confirm-email-school"
+                                                                    class="form-label">
+                                                                    Konfirmasi Email Sekolah
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                    id="input-edit-confirm-email-school"
+                                                                    placeholder="Masukan Konfirmasi Email Sekolah"
+                                                                    aria-describedby="defaultFormControlHelp" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-secondary"
+                                                            data-bs-dismiss="modal">
+                                                            Tutup
+                                                        </button>
+                                                        <button id="btn-update-school" type="submit"
+                                                            class="btn btn-primary">
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,6 +340,8 @@
         integrity="sha512-hktawXAt9BdIaDoaO9DlLp6LYhbHMi5A36LcXQeHgVKUH6kJMOQsAtIw2kmQ9RERDpnSTlafajo6USh9JUXckw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="application/javascript">
+        var school_type_id
+
         fectAllSchools()
         fetchAllSchoolTypes()
 
@@ -230,11 +355,16 @@
                 success: function (response) {
                     if (response.status_code === 200) {
                         const schoolTypes = response.data.school_types
-                        
+                                                
                         $('#select-type-schools').empty()
                         $('#select-type-schools').append(`<option>-- Pilih Tipe Sekolah --</option>`)
                         schoolTypes.forEach(function (schoolType, index) {
                             $('#select-type-schools').append(`<option value="${schoolType.id}">${schoolType.name}</option>`)
+                        })
+                        $('#select-edit-type-school').empty()
+                        $('#select-edit-type-school').append(`<option>-- Pilih Tipe Sekolah --</option>`)
+                        schoolTypes.forEach(function (schoolType, index) {
+                            $('#select-edit-type-school').append(`<option value="${schoolType.id}">${schoolType.name}</option>`)
                         })
                     } else {
                         Swal.fire({
@@ -290,8 +420,8 @@
                                 htmlTableBody += `<i class="bx bx-dots-vertical-rounded"></i>`
                                 htmlTableBody += `</button>`
                                 htmlTableBody += `<div class="dropdown-menu" style="">`
-                                htmlTableBody += `<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>`
-                                htmlTableBody += `<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>`
+                                htmlTableBody += `<button id="btn-edit-school" type="button" class="dropdown-item" value="${school.id}"  data-bs-toggle="modal" data-bs-target="#editSchoolModal"><i class="bx bx-edit-alt me-1"></i> Edit</button>`
+                                htmlTableBody += `<button id="btn-delete-school" type="button" class="dropdown-item" value="${school.id}"><i class="bx bx-trash me-1"></i> Delete</button>`
                                 htmlTableBody += `</div>`
                                 htmlTableBody += `</div>`
                                 htmlTableBody += `</td>`
@@ -383,6 +513,233 @@
 
             btnSave.html('Simpan')
             btnSave.removeAttr("disabled")
+        })
+
+        $(document).on('click', '#btn-edit-school', function(event){
+            event.preventDefault()
+
+            school_type_id = $(this).val()
+            const inputEmailConfirm = $('#input-edit-confirm-email-school')
+            const inputEmail = $('#input-edit-email-school')
+            const inputTelephoneNumber = $('#input-edit-telephone-number-school')
+            const inputNameSchool = $('#input-edit-name-school')
+            const inputPostalCode = $('#input-edit-postal-code-school')
+            const inputAddress = $('#input-edit-address-school')
+            const inputNpsn = $('#input-edit-npsn-school')
+            const selectEditTypeSchool = $('#select-edit-type-school')
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.super-admin.school.show', ':id') }}".replace(':id', school_type_id),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const school = response.data.school
+                        
+                        selectEditTypeSchool.val(school.school_type_id)
+                        inputNpsn.val(school.npsn)
+                        inputAddress.val(school.address)
+                        inputPostalCode.val(school.postal_code)
+                        inputNameSchool.val(school.name)
+                        inputTelephoneNumber.val(school.telp_number)
+                        inputEmail.val(school.email)
+                        inputEmailConfirm.val(school.email)
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    if (response.status === 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Error',
+                            text: responseJson.message
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: responseJson.message
+                        })
+                    }
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        })
+
+        $('#form-update-school').on('submit', function (event) {
+            event.preventDefault()
+
+            const btnUpdateSchool = $('#btn-update-school')
+            const inputEmail = $('#input-edit-email-school')
+            const inputTelephoneNumber = $('#input-edit-telephone-number-school')
+            const inputNameSchool = $('#input-edit-name-school')
+            const inputPostalCode = $('#input-edit-postal-code-school')
+            const inputAddress = $('#input-edit-address-school')
+            const inputNpsn = $('#input-edit-npsn-school')
+            const selectEditTypeSchool = $('#select-edit-type-school')
+
+            btnUpdateSchool.attr("disabled", true)
+            btnUpdateSchool.html('Update...')
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'PUT',
+                url: "{{ route('api.super-admin.school.update', ':id') }}".replace(':id', school_type_id),
+                contentType: "application/json",
+                data: JSON.stringify({
+                    school_type: selectEditTypeSchool.val(),
+                    npsn: inputNpsn.val(),
+                    address: inputAddress.val(),
+                    postal_code: inputPostalCode.val(),
+                    name: inputNameSchool.val(),
+                    telp_number: inputTelephoneNumber.val(),
+                    email: inputEmail.val(),
+                }),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        $('#editSchoolModal').find('input').val('')
+                        $('#editSchoolModal').modal('hide')
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message
+                        }).then(function(){
+                            fectAllSchools()
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    if (response.status === 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Error',
+                            text: responseJson.message
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: responseJson.message
+                        })
+                    }
+                },
+                
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+
+            btnUpdateSchool.html('Update')
+            btnUpdateSchool.removeAttr("disabled")
+        })
+
+        $(document).on('click', '#btn-delete-school', function(event) {
+            event.preventDefault()
+            const btnDeleteSchool = $(this)
+
+            btnDeleteSchool.attr("disabled", true)
+            btnDeleteSchool.html('Hapus...')
+
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: "Apakah yakin ingin menghapus data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#CF2F0D',
+                cancelButtonColor: '#8B8B8B',
+                confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    })
+
+                    $.LoadingOverlay("show", {
+                        image: "",
+                        fontawesome: "fa fa-spinner fa-spin"
+                    })
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ route('api.super-admin.school.destroy') }}",
+                        data: JSON.stringify({
+                            id : btnDeleteSchool.val()
+                        }),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status_code === 200) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: response.message
+                                }).then(function(){
+                                    fectAllSchools()
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: response.message
+                                })
+                            }
+                        },
+                        error: function (response) {
+                            const responseJson = response.responseJSON
+
+                            if (response.status === 422) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Validasi Error',
+                                    text: responseJson.message
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: responseJson.message
+                                })
+                            }
+                        },
+                        
+                        complete: function () {
+                            $.LoadingOverlay("hide")
+                        }
+                    })
+                }
+            })
+
+            btnDeleteSchool.html('Hapus')
+            btnDeleteSchool.removeAttr("disabled")
         })
     </script>
 @endsection

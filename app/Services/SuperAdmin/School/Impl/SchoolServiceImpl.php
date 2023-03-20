@@ -82,13 +82,14 @@ class SchoolServiceImpl implements SchoolService
     {
         $school->update(
             array_filter([
+                'school_type_id' => $request->input('school_type'),
                 'npsn' => $request->input('npsn'),
                 'address' => $request->input('address'),
                 'postal_code' => $request->input('postal_code'),
                 'name' => $request->input('name'),
                 'telp_number' => $request->input('telp_number'),
                 'email' => $request->input('email'),
-                'status' => $request->input('status')
+                'status' => $request->input('status') ?? null
             ], customArrayFilter())
         );
 
