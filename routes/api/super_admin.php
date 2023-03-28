@@ -34,7 +34,7 @@ Route::group(['prefix' => 'schools'], function () {
 });
 
 Route::group(['prefix' => 'admins'], function () {
-    Route::get('/', [AdminController::class, 'index'])->name('api.super-admin.admin.admin.index');
-    Route::get('/{param}', [AdminController::class, 'show'])->name('api.super-admin.admin.show');
-    Route::put('/{param}', [AdminController::class, 'update'])->name('api.super-admin.admin.update');
+    Route::get('/', [AdminController::class, 'index'])->name('api.super-admin.admin.index');
+    Route::get('/{param}', [AdminController::class, 'show'])->name('api.super-admin.show');
+    Route::put('/{param}', [AdminController::class, 'update'])->name('api.super-admin.update');
 });

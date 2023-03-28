@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('api.general.logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.general.auth.logout');
 });

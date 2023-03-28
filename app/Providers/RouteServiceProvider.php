@@ -65,12 +65,12 @@ class RouteServiceProvider extends ServiceProvider
 
         // API Petugas Route
         Route::prefix('/api/officer')
-            ->middleware(['api'])
+            ->middleware(['api', 'auth', 'role:Pengawas'])
             ->group(base_path('routes/api/officer.php'));
 
         // API Student Route
         Route::prefix('/api/student')
-            ->middleware(['api'])
+            ->middleware(['api', 'auth', 'role:Siswa'])
             ->group(base_path('routes/api/student.php'));
     }
 
@@ -79,7 +79,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function setWebRoutes()
+    public function setWebRoutes(): void
     {
         // Web Public Route
         Route::middleware(['web'])

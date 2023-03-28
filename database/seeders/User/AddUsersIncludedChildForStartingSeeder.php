@@ -30,7 +30,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
                 'name' => 'Super Admin 01',
                 'username' => 'super_admin_01',
                 'email' => 'superadmin01@gmail.com',
-                'photo_profile' => 'public/images/user/super-admin/photo_profile/default_photo_profile.jpg',
+                'photo_profile' => 'images/user/super-admin/photo_profile/default_photo_profile.jpg',
                 'password' => Hash::make('super_admin_01'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
@@ -52,7 +52,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
                 'name' => 'SMKN 1 Cimahi Admin',
                 'username' => 'smkn1_cimahi_admin_01',
                 'email' => 'smkn1cimahi@gmail.com',
-                'photo_profile' => 'public/images/user/admin/photo_profile/default_photo_profile.jpg',
+                'photo_profile' => 'images/user/admin/photo_profile/default_photo_profile.jpg',
                 'password' => Hash::make('smkn1_cimahi_admin_01'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
@@ -75,7 +75,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
                 'name' => 'Petugas 01',
                 'username' => 'petugas_01',
                 'email' => 'petugas_01@gmail.com',
-                'photo_profile' => 'public/images/user/officer/photo_profile/default_photo_profile.jpg',
+                'photo_profile' => 'images/user/officer/photo_profile/default_photo_profile.jpg',
                 'password' => Hash::make('petugas_01'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
@@ -99,7 +99,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
                 'username' => 'taniadwi',
                 'email' => 'taniadwi@gmail.com',
                 'nik' => '3217061504050010',
-                'photo_profile' => 'public/images/user/student/photo_profile/default_photo_profile.jpg',
+                'photo_profile' => 'images/user/student/photo_profile/default_photo_profile.jpg',
                 'password' => Hash::make('taniadwi'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
@@ -124,7 +124,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
                 'username' => 'bagusvalentino',
                 'email' => 'bagusvaalentino@gmail.com',
                 'nik' => '3217062402050010',
-                'photo_profile' => 'public/images/user/student/photo_profile/default_photo_profile.jpg',
+                'photo_profile' => 'images/user/student/photo_profile/default_photo_profile.jpg',
                 'password' => Hash::make('bagusvalentino'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]

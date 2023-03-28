@@ -9,9 +9,9 @@
     <title>{{ config('app.name') }} | {{ $title }}</title>
 
     {{-- Font Awesome Style --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" rel="stylesheet" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- Login CSS Style --}}
     <link href="{{ asset('assets/css/page/login/login-style.css') }}" rel="stylesheet">
@@ -33,6 +33,12 @@
         .text-danger {
             color: #dc3545 !important;
         }
+
+        #show-password {
+            position: absolute !important;
+            right: 5% !important;
+            cursor: pointer !important;
+        }
     </style>
 </head>
 
@@ -49,6 +55,7 @@
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input id="form-login-input-password" type="password" placeholder="Password" />
+                        <i id="show-password" class="fa-regular fa-eye-slash"></i>
                     </div>
                     <button type="submit" id="form-login-btn-submit" class="btn solid fs-16">Login</button>
                 </form>
@@ -553,6 +560,27 @@
     {{-- Sweet Alert --}}
     <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
 
+    {{-- Overlay Loading JQuery --}}
+    <script src="{{ asset('assets/js/JQuery/loading.overlay.jquery.min.js') }}"></script>
+
+    <script type="application/javascript">
+        $(document).ready(function() {
+            $('#show-password').click(function() {
+                var passwordInput = $('#form-login-input-password')
+                var passwordIcon = $('#show-password')
+                if (passwordInput.attr('type') == 'password') {
+                    passwordInput.attr('type', 'text')
+                    passwordIcon.removeClass('fa-eye-slash')
+                    passwordIcon.addClass('fa-eye')
+                } else {
+                    passwordInput.attr('type', 'password')
+                    passwordIcon.removeClass('fa-eye')
+                    passwordIcon.addClass('fa-eye-slash')
+                }
+            })
+        })
+    </script>
+
     <script>
         (function() {
             "use strict";
@@ -574,6 +602,17 @@
                 btnSubmit.attr("disabled", true)
                 btnSubmit.html('Login...')
 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+
+                $.LoadingOverlay("show", {
+                    image: "",
+                    fontawesome: "fa fa-spinner fa-spin"
+                })
+
                 $.ajax({
                     type: 'POST',
                     url: "{{ route('api.public.login') }}",
@@ -588,6 +627,10 @@
                         const responseJson = response.responseJson
 
                         if (response.status_code === 200) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Login Berhasil'
+                            })
                             window.location = "{{ route('web.general.auth.authRedirect') }}"
                         } else {
                             Swal.fire({
@@ -611,6 +654,10 @@
                                 title: responseJson.message
                             })
                         }
+                    },
+
+                    complete: function() {
+                        $.LoadingOverlay("hide")
                     }
                 })
 

@@ -52,7 +52,7 @@ class AuthServiceImpl implements AuthService
      * @param User $user
      * @return Authenticatable|bool
      */
-    public function login(Request $request, User $user)
+    public function login(Request $request, User $user): bool|Authenticatable
     {
         return Auth::loginUsingId($user->id, boolval($request->input('remember_me')));
     }

@@ -4,6 +4,7 @@ namespace App\Services\SuperAdmin\School\Impl;
 
 use App\Models\School\School;
 use App\Services\SuperAdmin\School\SchoolService;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -27,6 +28,28 @@ class SchoolServiceImpl implements SchoolService
      */
     public function getSchools(Request $request): Collection|array
     {
+        if ($request->has('search')) {
+            return $this->schoolModel->where(
+                function ($q) use ($request) {
+                    $q->where('name', 'LIKE', "%{$request->input('search')}%")
+                        ->orWhere('npsn', 'LIKE', "%{$request->input('search')}%");
+                }
+            )->with([
+                'schoolType'
+            ])->get();
+        } else if ($request->has('filter')) {
+            if ($request->filled('filter')) {
+                return $this->schoolModel->where(
+                    function ($q) use ($request) {
+                        $q->where('school_type_id', $request->input('filter'));
+                    }
+                )->with([
+                    'schoolType'
+                ])->get();
+            }
+            return $this->schoolModel->query()->with(['schoolType'])->orderBy('school_type_id')->get();
+        }
+
         return $this->schoolModel->query()->with(['schoolType'])->orderBy('school_type_id')->get();
     }
 
@@ -59,21 +82,19 @@ class SchoolServiceImpl implements SchoolService
      *
      * @param string|int $param
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function findSchool(string|int $param): mixed
     {
         $school = $this->schoolModel->find($param);
 
         if (!$school)
-            throw new \Exception('Data Sekolah tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+            throw new Exception('Data Sekolah tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
 
         return $school;
     }
 
     /**
-     * Update School
-     *
      * @param Request $request
      * @param School $school
      * @return School

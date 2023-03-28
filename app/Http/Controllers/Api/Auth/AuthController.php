@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Exceptions\Http\FormattedResponseException;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\AuthService;
@@ -22,8 +23,9 @@ class AuthController extends ApiController
      *
      * @param LoginRequest $request
      * @return JsonResponse
+     * @throws FormattedResponseException
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         try {
             $user = $this->authService->checkLoginCredentials($request);
@@ -47,8 +49,9 @@ class AuthController extends ApiController
      * Logout
      *
      * @return JsonResponse
+     * @throws FormattedResponseException
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         $this->authService->logout();
 

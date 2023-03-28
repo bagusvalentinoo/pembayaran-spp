@@ -25,13 +25,14 @@
             <div class="col-lg-4 col-md-12 col-sm-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text" id="basic-addon-search31">
+                        <form id="form-search-school" class="input-group input-group-merge">
+                            <button type="submit" class="input-group-text" id="basic-addon-search31">
                                 <i class="bx bx-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search..." aria-label="Search..."
-                                aria-describedby="basic-addon-search31">
-                        </div>
+                            </button>
+                            <input id="input-search-school" type="text" class="form-control"
+                                placeholder="Cari Nama Sekolah atau NPSN Sekolah..."
+                                aria-label="Cari Nama Sekolah atau NPSN Sekolah..." aria-describedby="basic-addon-search31">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -44,10 +45,7 @@
                                     <span class="input-group-text" id="basic-addon-search31">
                                         <i class="bx bx-filter"></i>
                                     </span>
-                                    <select class="form-select">
-                                        <option selected>-- Filter --</option>
-                                        <option value="1">Berdasarkan Tipe Sekolah SMA</option>
-                                        <option value="2">Berdasarkan Tipe Sekolah SMK</option>
+                                    <select id="select-filter-type-school" class="form-select">
                                     </select>
                                 </div>
                             </div>
@@ -60,6 +58,8 @@
                                     data-bs-target="#addNewSchoolModal">
                                     Tambah Sekolah Baru
                                 </button>
+
+                                {{-- Create School Modal --}}
                                 <div class="modal fade" id="addNewSchoolModal" tabindex="-1" aria-hidden="true"
                                     style="display: none;">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -180,7 +180,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Update School --}}
+                                {{-- Update School Modal --}}
                                 <div class="modal fade" id="editSchoolModal" tabindex="-1" aria-hidden="true"
                                     style="display: none;">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -302,6 +302,77 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- Detail School Modal --}}
+                                <div class="modal fade" id="detailSchoolModal" tabindex="-1" aria-hidden="true"
+                                    style="display: none;">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="detailSchoolModalTitle">Detail Sekolah</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row g-0 mb-2">
+                                                    <div class="col-12">
+                                                        <h6 class="m-0">Nama Sekolah</h6>
+                                                        <hr class="flex-grow-1 mr-3 border-light m-0">
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-4">
+                                                    <div class="col-12">
+                                                        <span id="name-school" class="text-bold"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-2">
+                                                    <div class="col-12">
+                                                        <h6 class="m-0">NPSN</h6>
+                                                        <hr class="flex-grow-1 mr-3 border-light m-0">
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-4">
+                                                    <div class="col-12">
+                                                        <span id="npsn-school" class="text-bold"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-2">
+                                                    <div class="col-12">
+                                                        <h6 class="m-0">Alamat</h6>
+                                                        <hr class="flex-grow-1 mr-3 border-light m-0">
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-4">
+                                                    <div class="col-12">
+                                                        <span id="address-school" class="text-bold"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-2">
+                                                    <div class="col-12">
+                                                        <h6 class="m-0">Nomor Telepon</h6>
+                                                        <hr class="flex-grow-1 mr-3 border-light m-0">
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-4">
+                                                    <div class="col-12">
+                                                        <span id="telp-number-school" class="text-bold"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-2">
+                                                    <div class="col-12">
+                                                        <h6 class="m-0">Email</h6>
+                                                        <hr class="flex-grow-1 mr-3 border-light m-0">
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0 mb-4">
+                                                    <div class="col-12">
+                                                        <span id="email-school" class="text-bold"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -336,9 +407,7 @@
 @section('script')
     <script src="{{ asset('assets/js/JQuery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-loading-overlay/2.1.7/loadingoverlay.min.js"
-        integrity="sha512-hktawXAt9BdIaDoaO9DlLp6LYhbHMi5A36LcXQeHgVKUH6kJMOQsAtIw2kmQ9RERDpnSTlafajo6USh9JUXckw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('assets/js/JQuery/loading.overlay.jquery.min.js') }}"></script>
     <script type="application/javascript">
         var school_type_id
 
@@ -366,6 +435,12 @@
                         schoolTypes.forEach(function (schoolType, index) {
                             $('#select-edit-type-school').append(`<option value="${schoolType.id}">${schoolType.name}</option>`)
                         })
+
+                        $('#select-filter-type-school').empty()
+                        $('#select-filter-type-school').append(`<option value="">-- Filter --</option>`)
+                        schoolTypes.forEach(function (schoolType, index) {
+                            $('#select-filter-type-school').append(`<option value="${schoolType.id}">Berdasarkan Tipe Sekolah ${schoolType.name}</option>`)
+                        })
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -386,6 +461,11 @@
 
         function fectAllSchools()
         {
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
             $.ajax({
                 type: 'GET',
                 url: "{{ route('api.super-admin.school.index') }}",
@@ -405,6 +485,83 @@
                             $('#table-school-list-body').append(htmlTableBody)
                         }else{
                             $('tbody').html("")
+                            let htmlTableBody = ''
+
+                            schools.forEach(function (school, index) {
+                                htmlTableBody += `<tr>`
+                                htmlTableBody += `<td>${index + 1}</td>`
+                                htmlTableBody += `<td>${school.school_type.name}</td>`
+                                htmlTableBody += `<td>${school.name}</td>`
+                                htmlTableBody += `<td>${school.npsn}</td>`
+                                htmlTableBody += `<td>${school.address}</td>`
+                                htmlTableBody += `<td>`
+                                htmlTableBody += `<div class="dropdown">`
+                                htmlTableBody += `<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">`
+                                htmlTableBody += `<i class="bx bx-dots-vertical-rounded"></i>`
+                                htmlTableBody += `</button>`
+                                htmlTableBody += `<div class="dropdown-menu" style="">`
+                                htmlTableBody += `<button id="btn-detail-school" type="button" class="dropdown-item" value="${school.id}" data-bs-toggle="modal" data-bs-target="#detailSchoolModal"><i class='bx bx-link-external'></i> Detail</button>`
+                                htmlTableBody += `<button id="btn-edit-school" type="button" class="dropdown-item" value="${school.id}"  data-bs-toggle="modal" data-bs-target="#editSchoolModal"><i class="bx bx-edit-alt me-1"></i> Edit</button>`
+                                htmlTableBody += `<button id="btn-delete-school" type="button" class="dropdown-item" value="${school.id}"><i class="bx bx-trash me-1"></i> Delete</button>`
+                                htmlTableBody += `</div>`
+                                htmlTableBody += `</div>`
+                                htmlTableBody += `</td>`
+                                htmlTableBody += `</tr>`
+                            })
+
+                            $('#table-school-list-body').append(htmlTableBody)
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: responseJson.message
+                    })
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        }
+
+        $('#select-filter-type-school').on('change', function(event) {
+            event.preventDefault()
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.super-admin.school.index') }}",
+                data: {
+                    filter: $(this).val()
+                },
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const schools = response.data.schools
+
+                        if(schools.length === 0){
+                            $('#table-school-list-body').html("")
+                            let htmlTableBody = ''
+
+                            htmlTableBody += `<tr>`
+                            htmlTableBody += `<td class="text-center" colspan="6">Data tidak ditemukan</td>`
+                            htmlTableBody += `</tr>`
+
+                            $('#table-school-list-body').append(htmlTableBody)
+                        }else{
+                            $('#table-school-list-body').html("")
                             let htmlTableBody = ''
 
                             schools.forEach(function (school, index) {
@@ -444,9 +601,92 @@
                         icon: 'error',
                         title: responseJson.message
                     })
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
                 }
             })
-        }
+        })
+
+        $('#form-search-school').on('submit', function (event) {
+            event.preventDefault()
+
+            const inputSearchSchool = $('#input-search-school')
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.super-admin.school.index') }}",
+                data: {
+                    search: inputSearchSchool.val()
+                },
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const schools = response.data.schools
+
+                        if(schools.length === 0){
+                            $('#table-school-list-body').html("")
+                            let htmlTableBody = ''
+
+                            htmlTableBody += `<tr>`
+                            htmlTableBody += `<td class="text-center" colspan="6">Data tidak ditemukan</td>`
+                            htmlTableBody += `</tr>`
+
+                            $('#table-school-list-body').append(htmlTableBody)
+                        }else{
+                            $('#table-school-list-body').html("")
+                            let htmlTableBody = ''
+
+                            schools.forEach(function (school, index) {
+                                htmlTableBody += `<tr>`
+                                htmlTableBody += `<td>${index + 1}</td>`
+                                htmlTableBody += `<td>${school.school_type.name}</td>`
+                                htmlTableBody += `<td>${school.name}</td>`
+                                htmlTableBody += `<td>${school.npsn}</td>`
+                                htmlTableBody += `<td>${school.address}</td>`
+                                htmlTableBody += `<td>`
+                                htmlTableBody += `<div class="dropdown">`
+                                htmlTableBody += `<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">`
+                                htmlTableBody += `<i class="bx bx-dots-vertical-rounded"></i>`
+                                htmlTableBody += `</button>`
+                                htmlTableBody += `<div class="dropdown-menu" style="">`
+                                htmlTableBody += `<button id="btn-detail-school" type="button" class="dropdown-item" value="${school.id}" data-bs-toggle="modal" data-bs-target="#detailSchoolModal"><i class='bx bx-link-external'></i> Detail</button>`
+                                htmlTableBody += `<button id="btn-edit-school" type="button" class="dropdown-item" value="${school.id}" data-bs-toggle="modal" data-bs-target="#editSchoolModal"><i class="bx bx-edit-alt me-1"></i> Edit</button>`
+                                htmlTableBody += `<button id="btn-delete-school" type="button" class="dropdown-item" value="${school.id}"><i class="bx bx-trash me-1"></i> Delete</button>`
+                                htmlTableBody += `</div>`
+                                htmlTableBody += `</div>`
+                                htmlTableBody += `</td>`
+                                htmlTableBody += `</tr>`
+                            })
+
+                            $('#table-school-list-body').append(htmlTableBody)
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: responseJson.message
+                    })
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        })
 
         $('#form-create-new-school').on('submit', function (event) {
             event.preventDefault()
@@ -515,7 +755,66 @@
             btnSave.removeAttr("disabled")
         })
 
-        $(document).on('click', '#btn-edit-school', function(event){
+        $(document).on('click', '#btn-detail-school', function (event) {
+            event.preventDefault()
+
+            const schoolId = $(this).val()
+            const textNameSchool = $('#name-school')
+            const textNpsnSchool = $('#npsn-school')
+            const textAddressSchool = $('#address-school')
+            const textTelpNumberSchool = $('#telp-number-school')
+            const textEmailSchool = $('#email-school')
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.super-admin.school.show', ':id') }}".replace(':id', schoolId),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const school = response.data.school
+                        
+                        textNameSchool.text(school.name)
+                        textNpsnSchool.text(school.npsn)
+                        textAddressSchool.text(school.address)
+                        textTelpNumberSchool.text(school.telp_number)
+                        textEmailSchool.text(school.email)
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    if (response.status === 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Error',
+                            text: responseJson.message
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: responseJson.message
+                        })
+                    }
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        })
+
+        $(document).on('click', '#btn-edit-school', function (event){
             event.preventDefault()
 
             school_type_id = $(this).val()

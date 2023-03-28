@@ -15,8 +15,6 @@ return new class extends Migration {
             $table->foreignUuid('spp_id');
             $table->foreignUuid('academic_year_id');
             $table->foreignUuid('semester_id');
-            $table->foreignUuid('month_id');
-            $table->foreignUuid('student_id');
             $table->timestamps();
         });
     }

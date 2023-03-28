@@ -26,6 +26,7 @@
 </head>
 
 <body>
+    @yield('php')
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             {{-- Sidebar --}}

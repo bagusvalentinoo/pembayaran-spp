@@ -36,9 +36,26 @@ class AdminServiceImpl implements AdminService
      */
     public function getAdmins(Request $request): Collection|array
     {
-        $admins = $this->adminModel->with(['school'])->get();
+        if ($request->has('search')) {
+            return $this->adminModel->query()->where(
+                function ($q) use ($request) {
+                    $q->where('name', 'LIKE', "%{$request->input('search')}%");
+                }
+            )->with([
+                'school',
+                'school.schoolType'
+            ])->get();
+        } elseif ($request->has('filter')) {
+            if ($request->filled('filter')) {
+                return $this->adminModel->query()->where(
+                    function ($q) use ($request) {
 
-        return $admins;
+                    }
+                );
+            }
+        }
+
+        return $this->adminModel->query()->with(['school', 'school.schoolType'])->get();
     }
 
     /**
@@ -96,7 +113,7 @@ class AdminServiceImpl implements AdminService
      */
     public function findAdmin(string|int $param): mixed
     {
-        $admin = $this->adminModel->find($param);
+        $admin = $this->adminModel->with(['user', 'school'])->find($param);
 
         if (!$admin)
             throw new Exception('Data Admin tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
