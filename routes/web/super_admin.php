@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'my-profile'], function () {
+    Route::get('/', [SuperAdminController::class, 'myProfilePage'])->name('web.super_admin.profile.index');
+});
+
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [SuperAdminController::class, 'dashboardPage'])->name('web.super_admin.dashboard.index');
 });

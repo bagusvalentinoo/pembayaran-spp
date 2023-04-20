@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('style')
+    {{-- Font Awesome Icon --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style type="text/css">
         .fs-18 {
             font-size: 18px !important;
@@ -28,6 +33,11 @@
 
         .p-button-icon {
             padding: 5px 8px 8px 8px !important;
+        }
+
+        .loading-overlay img {
+            width: 600px !important;
+            height: 600px !important;
         }
     </style>
 @endsection
@@ -69,7 +79,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal"
-                                data-bs-target="#addCompetenciesModal"">
+                                    data-bs-target="#addCompetenciesModal"">
                                     Tambah Kompetensi
                                 </button>
                             </div>
@@ -181,6 +191,10 @@
 @section('script')
     {{-- JQuery --}}
     <script src="{{ asset('assets/js/JQuery/jquery.min.js') }}"></script>
+
+    {{-- JQuery Overlay Loading --}}
+    <script src="{{ asset('assets/js/JQuery/loading.overlay.jquery.min.js') }}"></script>
+
     {{-- Sweet Alert --}}
     <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
 
@@ -194,12 +208,15 @@
     </script>
 
     <script type="application/javascript">
-        var id_competency
-
         fecthAllCompetencies()
 
         function fecthAllCompetencies()
         {
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
             $.ajax({
                 type: 'GET',
                 url: "{{ route('api.admin.competency.index') }}",
@@ -256,248 +273,12 @@
                         icon: 'error',
                         title: responseJson.message
                     })
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
                 }
             })
         }
-
-        $('#form-competencies-create').on('submit', function (event) {
-            event.preventDefault()
-
-            var names = $('#inputNameCompetencies').val().split(',').map(function(name) {
-                return name.trim()
-            })
-
-            var formData = {
-                names: names
-            }
-
-            const btnSave = $('#btn-save')
-
-            btnSave.attr("disabled", true)
-            btnSave.html('Simpan...')
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('api.admin.comptency.store') }}",
-                contentType: "application/json",
-                data: JSON.stringify(formData),
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status_code === 201) {
-                        $('#addCompetenciesModal').find('input').val('')
-                        $('#addCompetenciesModal').modal('hide')
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.message
-                        }).then(function(){
-                            fecthAllCompetencies()
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.message
-                        })
-                    }
-                },
-                error: function (response) {
-                    const responseJson = response.responseJSON
-
-                    if (response.status === 422) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Validasi Error',
-                            text: responseJson.message
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: responseJson.message
-                        })
-                    }
-                }
-            })
-
-            btnSave.html('Simpan')
-            btnSave.removeAttr("disabled")
-        })
-
-        $(document).on('click', '#btn-edit', function(event){
-            event.preventDefault()
-
-            id_competency = $(this).val()
-            const inputNameCompetencies = $('#inputEditNameCompetencies')
-
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('api.admin.competency.show', ':id') }}".replace(':id', id_competency),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status_code === 200) {
-                        const competency = response.data.competency
-                        inputNameCompetencies.val(competency.name)
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.message
-                        })
-                    }
-                },
-                error: function (response) {
-                    const responseJson = response.responseJSON
-
-                    if (response.status === 422) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Validasi Error',
-                            text: responseJson.message
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: responseJson.message
-                        })
-                    }
-                }
-            })
-        })
-
-        $('#form-competencies-edit').on('submit', function (event) {
-            event.preventDefault()
-
-            const inputNameCompetency = $('#inputEditNameCompetencies')
-            const btnUpdate = $('#btn-update')
-
-            btnUpdate.attr("disabled", true)
-            btnUpdate.html('Update...')
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
-
-            $.ajax({
-                type: 'PUT',
-                url: "{{ route('api.admin.competency.update', ':id') }}".replace(':id', id_competency),
-                contentType: "application/json",
-                data: JSON.stringify({
-                    name: inputNameCompetency.val()
-                }),
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status_code === 200) {
-                        $('#editCompetenciesModal').find('input').val('')
-                        $('#editCompetenciesModal').modal('hide')
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.message
-                        }).then(function(){
-                            fecthAllCompetencies()
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: response.message
-                        })
-                    }
-                },
-                error: function (response) {
-                    const responseJson = response.responseJSON
-
-                    if (response.status === 422) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Validasi Error',
-                            text: responseJson.message
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: responseJson.message
-                        })
-                    }
-                }
-            })
-
-            btnUpdate.html('Update')
-            btnUpdate.removeAttr("disabled")
-        })
-
-        $(document).on('click', '#btn-delete', function(event) {
-            event.preventDefault()
-            const btnDelete = $(this)
-
-            btnDelete.attr("disabled", true)
-            btnDelete.html('Hapus...')
-
-            Swal.fire({
-                title: 'Konfirmasi Hapus',
-                text: "Apakah yakin ingin menghapus data ini?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#CF2F0D',
-                cancelButtonColor: '#8B8B8B',
-                confirmButtonText: 'Ya, hapus!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    })
-
-                    $.ajax({
-                        type: 'DELETE',
-                        url: "{{ route('api.admin.competency.destroy') }}",
-                        data: JSON.stringify({
-                            ids : [btnDelete.val()]
-                        }),
-                        contentType: "application/json",
-                        dataType: 'json',
-                        success: function (response) {
-                            if (response.status_code === 200) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: response.message
-                                }).then(function(){
-                                    fecthAllCompetencies()
-                                })
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: response.message
-                                })
-                            }
-                        },
-                        error: function (response) {
-                            const responseJson = response.responseJSON
-
-                            if (response.status === 422) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Validasi Error',
-                                    text: responseJson.message
-                                })
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: responseJson.message
-                                })
-                            }
-                        }
-                    })
-                }
-            })
-
-            btnDelete.html('Hapus')
-            btnDelete.removeAttr("disabled")
-        })
     </script>
 @endsection

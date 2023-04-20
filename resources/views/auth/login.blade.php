@@ -34,6 +34,12 @@
             color: #dc3545 !important;
         }
 
+        .loading-overlay img {
+            width: 1500px !important;
+            height: 1500px !important;
+        }
+
+
         #show-password {
             position: absolute !important;
             right: 5% !important;
@@ -610,7 +616,7 @@
 
                 $.LoadingOverlay("show", {
                     image: "",
-                    fontawesome: "fa fa-spinner fa-spin"
+                    fontawesome: "fa fa-spinner fa-spin",
                 })
 
                 $.ajax({

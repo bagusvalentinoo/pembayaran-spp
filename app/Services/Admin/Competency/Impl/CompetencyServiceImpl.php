@@ -87,9 +87,9 @@ class CompetencyServiceImpl implements CompetencyService
      *
      * @param Request $request
      * @param Competency $competency
-     * @return Competency|mixed
+     * @return Competency
      */
-    public function updateCompetency(Request $request, Competency $competency)
+    public function updateCompetency(Request $request, Competency $competency): Competency
     {
         $competency->update(
             array_filter([

@@ -14,7 +14,7 @@ trait ServiceResource
      * @param string $value
      * @return array|string|string[]
      */
-    protected function setStrReplace(string $filter, string $replace, string $value)
+    protected function setStrReplace(string $filter, string $replace, string $value): array|string
     {
         $result = '';
 
@@ -36,7 +36,7 @@ trait ServiceResource
      * @param string $value
      * @return string
      */
-    protected function setStrToLower(string $value)
+    protected function setStrToLower(string $value): string
     {
         return strtolower($value);
     }
@@ -47,7 +47,7 @@ trait ServiceResource
      * @param string $value
      * @return string
      */
-    protected function setStrToUpper(string $value)
+    protected function setStrToUpper(string $value): string
     {
         return strtoupper($value);
     }
@@ -58,7 +58,7 @@ trait ServiceResource
      * @param int $digit
      * @return string
      */
-    protected function setGeneratedRandomPassword(int $digit)
+    protected function setGeneratedRandomPassword(int $digit): string
     {
         return Str::random($digit);
     }
@@ -71,7 +71,7 @@ trait ServiceResource
      * @param int $length
      * @return string
      */
-    protected function setGeneratedRandomLastDigitsAdminUsername(int $start, int $end, int $length)
+    protected function setGeneratedRandomLastDigitsAdminUsername(int $start, int $end, int $length): string
     {
         return str_pad(mt_rand($start, $end), $length, '0', STR_PAD_LEFT);
     }
