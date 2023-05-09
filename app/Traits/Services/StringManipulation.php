@@ -4,7 +4,7 @@ namespace App\Traits\Services;
 
 use Illuminate\Support\Str;
 
-trait ServiceResource
+trait StringManipulation
 {
     /**
      * Set Str Replace
@@ -24,6 +24,9 @@ trait ServiceResource
                 break;
             case '_':
                 $result = str_replace('_', $replace, $value);
+                break;
+            case ',':
+                $result = str_replace(',', $replace, $value);
                 break;
         }
 

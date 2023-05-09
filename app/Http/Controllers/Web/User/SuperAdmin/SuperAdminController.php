@@ -11,10 +11,10 @@ class SuperAdminController extends WebController
 {
     /**
      * My Profile View
-     * 
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     *
+     * @return View|Factory|Application
      */
-    public function myProfilePage(): \Illuminate\Foundation\Application|View|Factory|Application
+    public function myProfilePage(): View|Factory|Application
     {
         $user = auth()->user();
 
@@ -27,9 +27,9 @@ class SuperAdminController extends WebController
     /**
      * Dashboard Page View
      *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     * @return View|Factory|Application
      */
-    public function dashboardPage(): \Illuminate\Foundation\Application|View|Factory|Application
+    public function dashboardPage(): View|Factory|Application
     {
         $user = auth()->user();
 
@@ -42,9 +42,9 @@ class SuperAdminController extends WebController
     /**
      * School Page View
      *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     * @return View|Factory|Application
      */
-    public function schoolPage(): \Illuminate\Foundation\Application|View|Factory|Application
+    public function schoolPage(): View|Factory|Application
     {
         $user = auth()->user();
 
@@ -57,9 +57,9 @@ class SuperAdminController extends WebController
     /**
      * Admin Page View
      *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     * @return View|Factory|Application
      */
-    public function adminPage(): \Illuminate\Foundation\Application|View|Factory|Application
+    public function adminPage(): View|Factory|Application
     {
         $user = auth()->user();
 

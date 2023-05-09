@@ -3,6 +3,9 @@
 namespace App\Services\Admin\Classroom;
 
 use App\Models\School\Classroom;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 interface ClassroomService
@@ -12,47 +15,46 @@ interface ClassroomService
      *
      * @return mixed
      */
-    public function getSchoolIdFromAdminAuthenticated();
+    public function getSchoolIdFromAdminAuthenticated(): mixed;
 
     /**
      * Get Classrooms
      *
      * @param Request $request
-     * @return mixed
+     * @return Builder[]|Collection
      */
-    public function getClassrooms(Request $request);
+    public function getClassrooms(Request $request): Collection|array;
 
     /**
      * Find Classroom
      *
      * @param string|int $param
-     * @return mixed
+     * @return Builder|Builder[]|Collection|Model
      */
-    public function findClassroom(string|int $param);
+    public function findClassroom(string|int $param): Model|Collection|Builder|array;
 
     /**
-     * Create Classrooms
+     * Create Classroom
      *
      * @param Request $request
-     * @return array
+     * @return Model|Builder
      */
-    public function createClassrooms(Request $request);
+    public function createClassroom(Request $request): Builder|Model;
 
     /**
      * Update Classroom
      *
      * @param Request $request
      * @param Classroom $classroom
-     * @return mixed
+     * @return Classroom
      */
-    public function updateClassroom(Request $request, Classroom $classroom);
+    public function updateClassroom(Request $request, Classroom $classroom): Classroom;
 
     /**
-     * Delete Classrooms
+     * Delete Classroom
      *
-     * @param Request $request
-     * @param array $classroomsIds
-     * @return int
+     * @param string|int $param
+     * @return bool|mixed|null
      */
-    public function deleteClassrooms(Request $request, array $classroomsIds);
+    public function deleteClassroom(string|int $param): mixed;
 }

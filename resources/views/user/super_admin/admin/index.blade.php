@@ -114,8 +114,6 @@
                                     </span>
                                     <select id="select-filter-school-type" class="form-select">
                                         <option>-- Filter --</option>
-                                        <option>Berdasarkan Tipe Sekolah SMA</option>
-                                        <option>Berdasarkan Tipe Sekolah SMK</option>
                                     </select>
                                 </div>
                             </div>
@@ -154,7 +152,42 @@
     <script src="{{ asset('assets/js/JQuery/loading.overlay.jquery.min.js') }}"></script>
 
     <script type="application/javascript">
+        fetchAllSchoolTypes()
         fetchAllAdmins()
+
+        function fetchAllSchoolTypes()
+        {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.super-admin.school-type.index') }}",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const schoolTypes = response.data.school_types
+                        
+                        $('#select-filter-school-type').empty()
+                        $('#select-filter-school-type').append(`<option value="">-- Pilih Tipe Sekolah --</option>`)
+                        schoolTypes.forEach(function (schoolType, index) {
+                            $('#select-filter-school-type').append(`<option value="${schoolType.id}">${schoolType.name}</option>`)
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: responseJson.message
+                    })
+                }
+            })
+        }
 
         function fetchAllAdmins()
         {
@@ -325,7 +358,79 @@
                         textPhoneNumberAdmin.text(admin.phone_number)
                         textAddressAdmin.text(admin.address)
                         
+                        $('#img-container').html("")
                         $('#img-container').html(imgContainerBody)
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: responseJson.message
+                    })
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        })
+
+        $('#select-filter-school-type').on('change', function (event) {
+            event.preventDefault()
+            
+            const selectTypeSchoolId = $(this)
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.super-admin.admin.index') }}",
+                data: {
+                    filter: selectTypeSchoolId.val()
+                },
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const admins = response.data.admins
+
+                        if(admins.length === 0){
+                            $('#table-admin-list-body').html("")
+                            let htmlTableBody = ''
+
+                            htmlTableBody += `<tr>`
+                            htmlTableBody += `<td class="text-center" colspan="5">Data tidak ditemukan</td>`
+                            htmlTableBody += `</tr>`
+
+                            $('#table-admin-list-body').append(htmlTableBody)
+                        }else{
+                            $('#table-admin-list-body').html("")
+                            let htmlTableBody = ''
+
+                            admins.forEach(function (admin, index) {
+                                htmlTableBody += `<tr>`
+                                htmlTableBody += `<td>${index + 1}</td>`
+                                htmlTableBody += `<td>${admin.school.school_type.name}</td>`
+                                htmlTableBody += `<td>${admin.school.name}</td>`
+                                htmlTableBody += `<td>${admin.name}</td>`
+                                htmlTableBody += `<td>`
+                                htmlTableBody += `<button id="btn-detail" type="button" class="btn btn-outline-primary rounded-circle p-circle" value="${admin.id}" data-bs-toggle="modal" data-bs-target="#detailAdminModal">`
+                                htmlTableBody += `<i class='bx bx-link-external'></i>`
+                                htmlTableBody += `</button>`
+                                htmlTableBody += `</td>`
+                                htmlTableBody += `</tr>`
+                            })
+
+                            $('#table-admin-list-body').append(htmlTableBody)
+                        }
                     } else {
                         Swal.fire({
                             icon: 'error',

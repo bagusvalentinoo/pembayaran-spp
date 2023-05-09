@@ -204,6 +204,9 @@ return [
         // Admin Service Provider
         App\Providers\Services\AdminServiceProvider::class,
 
+        // General Service Provider
+        App\Providers\Services\GeneralServiceProvider::class,
+
     ],
 
     /*

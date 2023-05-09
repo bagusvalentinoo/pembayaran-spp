@@ -72,11 +72,11 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
         $userOfficer = (new User())->create(
             [
                 'id' => Uuid::uuid4(),
-                'name' => 'Petugas 01',
-                'username' => 'petugas_01',
-                'email' => 'petugas_01@gmail.com',
+                'name' => 'SMKN 1 Cimahi Petugas',
+                'username' => 'smkn1_cimahi_officer_01',
+                'email' => 'smkn1cimahi@gmail.com',
                 'photo_profile' => 'images/user/officer/photo_profile/default_photo_profile.jpg',
-                'password' => Hash::make('petugas_01'),
+                'password' => Hash::make('smkn1_cimahi_officer_01'),
                 'email_verified_at' => $carbonNow->format('Y-m-d H:i:s')
             ]
         );
@@ -86,7 +86,7 @@ class AddUsersIncludedChildForStartingSeeder extends Seeder
             [
                 'user_id' => $userOfficer->id,
                 'school_id' => $schoolSmkOneCimahiId,
-                'name' => 'Petugas 01',
+                'name' => 'SMKN 1 Cimahi Petugas',
                 'phone_number' => $faker->phoneNumber(),
                 'address' => $faker->address()
             ]

@@ -6,7 +6,7 @@ use App\Mail\User\Admin\Officer\OfficerMail;
 use App\Models\User\Officer;
 use App\Models\User\User;
 use App\Services\Admin\Officer\OfficerService;
-use App\Traits\Services\ServiceResource;
+use App\Traits\Services\StringManipulation;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class OfficerServiceImpl implements OfficerService
 {
-    use ServiceResource;
+    use StringManipulation;
 
     private $userModel, $officerModel;
 

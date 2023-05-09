@@ -76,8 +76,7 @@ class StudentController extends ApiController
     public function store(Request $request): JsonResponse
     {
         try {
-            $randomPassword = $this->setGeneratedRandomPassword(10);
-            $this->studentService->createStudents($request, $randomPassword);
+
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }
@@ -101,8 +100,7 @@ class StudentController extends ApiController
     public function update(Request $request, string|int $param): JsonResponse
     {
         try {
-            $student = $this->studentService->findStudent($param);
-            $this->studentService->updateStudent($request, $student);
+
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }
@@ -123,7 +121,7 @@ class StudentController extends ApiController
     public function destroy(Request $request): JsonResponse
     {
         try {
-            $this->studentService->deleteStudents($request, $request->input('ids'));
+            
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Admin\Competency;
 use App\Exceptions\Http\FormattedResponseException;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Admin\Competency\CompetencyRequest;
-use App\Models\School\Competency;
 use App\Services\Admin\Competency\CompetencyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,7 +26,7 @@ class CompetencyController extends ApiController
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $competencies = $this->comptencyService->getCompetencies($request);
 
@@ -42,7 +41,14 @@ class CompetencyController extends ApiController
         );
     }
 
-    public function show(string|int $param)
+    /**
+     * Find Competency Data
+     *
+     * @param string|int $param
+     * @return JsonResponse
+     * @throws FormattedResponseException
+     */
+    public function show(string|int $param): JsonResponse
     {
         try {
             $competency = $this->comptencyService->findCompetency($param);
@@ -68,15 +74,15 @@ class CompetencyController extends ApiController
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function store(CompetencyRequest $request)
+    public function store(CompetencyRequest $request): JsonResponse
     {
-        $this->comptencyService->createCompetencies($request);
+        $this->comptencyService->createCompetency($request);
 
         return $this->makeJsonResponse(
             $this->makeResponsePayload()
                 ->setMessageFromPurpose('create')
                 ->setStatusCode(ResponseAlias::HTTP_CREATED)
-                ->setMessage('Berhasil menambahkan data Kompetensi')
+                ->setMessage('Berhasil Menambahkan Data Kompetensi')
         );
     }
 
@@ -84,11 +90,11 @@ class CompetencyController extends ApiController
      * Update Competency
      *
      * @param CompetencyRequest $request
-     * @param Competency $competency
+     * @param string|int $param
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function update(CompetencyRequest $request, string|int $param)
+    public function update(CompetencyRequest $request, string|int $param): JsonResponse
     {
         try {
             $competency = $this->comptencyService->findCompetency($param);
@@ -113,10 +119,10 @@ class CompetencyController extends ApiController
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function destroy(CompetencyRequest $request)
+    public function destroy(CompetencyRequest $request): JsonResponse
     {
         try {
-            $this->comptencyService->deleteCompetencies($request, $request->input('ids'));
+            $this->comptencyService->deleteCompetency($request->input('id'));
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }

@@ -4,6 +4,10 @@ namespace App\Services\Admin\Competency\Impl;
 
 use App\Models\School\Competency;
 use App\Services\Admin\Competency\CompetencyService;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
@@ -21,7 +25,7 @@ class CompetencyServiceImpl implements CompetencyService
      *
      * @return mixed
      */
-    public function getSchoolIdFromAdminAuthenticated()
+    public function getSchoolIdFromAdminAuthenticated(): mixed
     {
         return auth()->user()->admin->school->id;
     }
@@ -30,60 +34,64 @@ class CompetencyServiceImpl implements CompetencyService
      * Get Competencies
      *
      * @param Request $request
-     * @return mixed
+     * @return Builder[]|Collection
      */
-    public function getCompetencies(Request $request)
+    public function getCompetencies(Request $request): Collection|array
     {
-        $competencies = $this->competencyModel->where(
+        if ($request->has('search') && $request->filled('search'))
+            return $this->competencyModel->query()->where(
+                function ($q) use ($request) {
+                    $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated())
+                        ->where('name', 'LIKE', "%{$request->input('search')}%");
+                }
+            )->withCount([
+                'classrooms'
+            ])->get();
+
+        return $this->competencyModel->query()->where(
             function ($q) {
                 $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated());
             }
-        )->withCount(['classrooms'])->get();
-
-        return $competencies;
+        )->withCount([
+            'classrooms'
+        ])->get();
     }
 
     /**
      * Find Competency
      *
-     * @param int|string $param
-     * @return mixed
-     * @throws \Exception
+     * @param string|int $param
+     * @return Builder|Builder[]|Collection|Model
+     * @throws Exception
      */
-    public function findCompetency(int|string $param)
+    public function findCompetency(string|int $param): Model|Collection|Builder|array
     {
-        $competency = $this->competencyModel->find($param);
+        $competency = $this->competencyModel->query()->find($param);
 
         if (!$competency)
-            throw new \Exception('Kompetensi tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+            throw new Exception('Data Kompetensi tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
 
         return $competency;
     }
 
     /**
-     * Create Competencies
+     * Create Competency
      *
      * @param Request $request
-     * @return array
+     * @return Builder|Model
      */
-    public function createCompetencies(Request $request)
+    public function createCompetency(Request $request): Model|Builder
     {
-        $competencies = [];
-
-        foreach ($request->input('names') as $competencyName) {
-            $competencies = $this->competencyModel->create(
-                array_filter([
-                    'school_id' => $this->getSchoolIdFromAdminAuthenticated(),
-                    'name' => $competencyName
-                ], customArrayFilter())
-            );
-        }
-
-        return $competencies;
+        return $this->competencyModel->query()->create(
+            array_filter([
+                'school_id' => $this->getSchoolIdFromAdminAuthenticated(),
+                'name' => $request->input('name')
+            ], customArrayFilter())
+        );
     }
 
     /**
-     * Competency Update
+     * Update Competency
      *
      * @param Request $request
      * @param Competency $competency
@@ -101,14 +109,19 @@ class CompetencyServiceImpl implements CompetencyService
     }
 
     /**
-     * Delete Competencies
+     * Delete Competency
      *
-     * @param Request $request
-     * @param array $competenciesIds
-     * @return int
+     * @param string|int $param
+     * @return bool|mixed|null
+     * @throws Exception
      */
-    public function deleteCompetencies(Request $request, array $competenciesIds): int
+    public function deleteCompetency(string|int $param): mixed
     {
-        return $this->competencyModel->destroy($competenciesIds);
+        $competency = $this->competencyModel->query()->find($param);
+
+        if (!$competency)
+            throw new Exception('Data Kompetensi tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+
+        return $competency->delete();
     }
 }

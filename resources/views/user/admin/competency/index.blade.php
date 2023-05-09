@@ -34,52 +34,94 @@
         .p-button-icon {
             padding: 5px 8px 8px 8px !important;
         }
-
-        .loading-overlay img {
-            width: 600px !important;
-            height: 600px !important;
-        }
     </style>
 @endsection
 
 @section('content')
+    <div class="modal fade" id="addCompetencyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-20" id="addCompetencyModalTitle">Tambah Kompetensi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-create-competency">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="input-create-name-competency" class="form-label">
+                                    <span class="text-danger">*</span>
+                                    Nama Kompetensi
+                                </label>
+                                <input type="text" id="input-create-name-competency" class="form-control"
+                                    placeholder="Masukan Nama Kompetensi" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                        <button id="btn-save" type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editCompetencyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-20" id="editCompetencyModalTitle">Edit Kompetensi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-edit-competency">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="input-edit-name-competency" class="form-label">
+                                    <span class="text-danger">*</span>
+                                    Nama Kompetensi
+                                </label>
+                                <input type="text" id="input-edit-name-competency" class="form-control"
+                                    placeholder="Masukan Nama Kompetensi" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                        <button id="btn-update" type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row d-flex justify-content-between align-items-center">
             <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text" id="basic-addon-search31">
+                        <form id="form-search-competency" class="input-group input-group-merge">
+                            <button type="submit" class="input-group-text" id="basic-addon-search31">
                                 <i class="bx bx-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search..." aria-label="Search..."
+                            </button>
+                            <input id="input-search-competency" type="text" class="form-control"
+                                placeholder="Cari Nama Kompetensi..." aria-label="Cari Nama Kompetensi..."
                                 aria-describedby="basic-addon-search31">
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="row d-flex align-items-center justify-content-end">
-                    <div class="col-lg-5 col-md-8 col-sm-12 mt-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="input-group input-group-merge">
-                                    <span class="input-group-text" id="basic-addon-search31">
-                                        <i class="bx bx-filter"></i>
-                                    </span>
-                                    <select class="form-select">
-                                        <option selected>-- Filter --</option>
-                                        <option value="1">Berdasarkan Kompetensi</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-auto col-md-auto col-sm-12 mt-3">
                         <div class="card">
                             <div class="card-body">
                                 <button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal"
-                                    data-bs-target="#addCompetenciesModal"">
+                                    data-bs-target="#addCompetencyModal">
                                     Tambah Kompetensi
                                 </button>
                             </div>
@@ -88,83 +130,11 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-header-title fs-30">Data Kompetensi</h4>
-                        <div class="modal fade" id="addCompetenciesModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title fs-20" id="addCompetenciesModalTitle">Tambah Kompetensi</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form id="form-competencies-create">
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12 mb-3">
-                                                    <input type="text" id="inputNameCompetencies" class="form-control"
-                                                        placeholder="Masukan Nama Kompetensi" />
-                                                    {{-- <div class="d-flex justify-content-between align-items-center mt-3">
-                                                        <hr class="flex-grow-1 mr-3 border-light">
-                                                        <button id="btn-add-compentencies" type="button"
-                                                            class="btn btn-outline-success rounded-circle p-button-icon">
-                                                            <i class='bx bx-plus fs-18'></i>
-                                                        </button>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">
-                                                Tutup
-                                            </button>
-                                            <button id="btn-save" type="submit" class="btn btn-primary">Simpan</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="editCompetenciesModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title fs-20" id="editCompetenciesModalTitle">Tambah Kompetensi</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form id="form-competencies-edit">
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12 mb-3">
-                                                    <input type="text" id="inputEditNameCompetencies"
-                                                        class="form-control" placeholder="Masukan Nama Kompetensi" />
-                                                    {{-- <div class="d-flex justify-content-between align-items-center mt-3">
-                                                        <hr class="flex-grow-1 mr-3 border-light">
-                                                        <button id="btn-add-compentencies" type="button"
-                                                            class="btn btn-outline-success rounded-circle p-button-icon">
-                                                            <i class='bx bx-plus fs-18'></i>
-                                                        </button>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">
-                                                Tutup
-                                            </button>
-                                            <button id="btn-update" type="submit" class="btn btn-primary">Update</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive text-nowrap">
@@ -199,15 +169,8 @@
     <script src="{{ asset('assets/js/sweetalert/sweetalert2@11.js') }}"></script>
 
     <script type="application/javascript">
-        $(document).ready(function() {
-            $('#btn-add-compentencies').click(function() {
-                var newInput = $('<div class="col-12 mb-3"><input type="text" class="form-control" placeholder="Masukan Nama Kompetensi" /></div>');
-                newInput.insertBefore($(this).closest('.col-12'));
-            });
-        });
-    </script>
+        var competencyId
 
-    <script type="application/javascript">
         fecthAllCompetencies()
 
         function fecthAllCompetencies()
@@ -249,7 +212,7 @@
                                 htmlTableBody += `<i class="bx bx-dots-vertical-rounded"></i>`
                                 htmlTableBody += `</button>`
                                 htmlTableBody += `<div class="dropdown-menu" style="">`
-                                htmlTableBody += `<button type="button" id="btn-edit" class="dropdown-item" value="${competency.id}" data-bs-toggle="modal" data-bs-target="#editCompetenciesModal"><i class="bx bx-edit-alt me-1"></i> Ubah</button>`
+                                htmlTableBody += `<button type="button" id="btn-edit" class="dropdown-item" value="${competency.id}" data-bs-toggle="modal" data-bs-target="#editCompetencyModal"><i class="bx bx-edit-alt me-1"></i> Ubah</button>`
                                 htmlTableBody += `<button type="button" id="btn-delete" class="dropdown-item" value="${competency.id}"><i class="bx bx-trash me-1"></i> Hapus</button>`
                                 htmlTableBody += `</div>`
                                 htmlTableBody += `</div>`
@@ -280,5 +243,359 @@
                 }
             })
         }
+
+        $('#form-search-competency').on('submit', function (event) {
+            event.preventDefault()
+
+            const textSearchCompetency = $('#input-search-competency').val()
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.admin.competency.index') }}",
+                data: {
+                    search : textSearchCompetency
+                },
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const competencies = response.data.competencies
+
+                        if(competencies.length === 0){
+                            let htmlTableBody = ''
+
+                            $('#table-competency-list-body').html("")
+
+                            htmlTableBody += `<tr>`
+                            htmlTableBody += `<td colspan="4" class="text-center">Data tidak ditemukan</td>`
+                            htmlTableBody += `</tr>`
+
+                            $('#table-competency-list-body').append(htmlTableBody)
+                        }else{
+                            $('tbody').html("")
+                            let htmlTableBody = ''
+
+                            $('#table-competency-list-body').html("")
+
+                            competencies.forEach(function (competency, index) {
+                                htmlTableBody += `<tr>`
+                                htmlTableBody += `<td>${index + 1}</td>`
+                                htmlTableBody += `<td>${competency.name}</td>`
+                                htmlTableBody += `<td>${competency.classrooms_count}</td>`
+                                htmlTableBody += `<td>`
+                                htmlTableBody += `<div class="dropdown">`
+                                htmlTableBody += `<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">`
+                                htmlTableBody += `<i class="bx bx-dots-vertical-rounded"></i>`
+                                htmlTableBody += `</button>`
+                                htmlTableBody += `<div class="dropdown-menu" style="">`
+                                htmlTableBody += `<button type="button" id="btn-edit" class="dropdown-item" value="${competency.id}" data-bs-toggle="modal" data-bs-target="#editCompetencyModal"><i class="bx bx-edit-alt me-1"></i> Ubah</button>`
+                                htmlTableBody += `<button type="button" id="btn-delete" class="dropdown-item" value="${competency.id}"><i class="bx bx-trash me-1"></i> Hapus</button>`
+                                htmlTableBody += `</div>`
+                                htmlTableBody += `</div>`
+                                htmlTableBody += `</td>`
+                                htmlTableBody += `</tr>`
+                            })
+
+                            $('#table-competency-list-body').append(htmlTableBody)
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: responseJson.message
+                    })
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        })
+
+        $('#form-create-competency').on('submit', function (event) {
+            event.preventDefault()
+            
+            const inputCreateNameCompetency = $('#input-create-name-competency').val()
+            const btnSave = $('#btn-save')
+
+            btnSave.attr('disabled', true)
+            btnSave.html('Simpan...')
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+            
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('api.admin.comptency.store') }}",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    name : inputCreateNameCompetency
+                }),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 201) {
+                        $('#addCompetencyModal').find('input').val('')
+                        $('#addCompetencyModal').modal('hide')
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message
+                        }).then(function(){
+                            fecthAllCompetencies()
+                        })
+                    } else {
+                        $('#addCompetencyModal').modal('hide')
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    if (response.status === 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Error',
+                            text: responseJson.message
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: responseJson.message
+                        })
+                    }
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+
+            btnSave.html('Simpan')
+            btnSave.removeAttr("disabled")
+        })
+
+        $(document).on('click', '#btn-edit', function (event) {
+            event.preventDefault()
+
+            competencyId = $(this).val()
+            const textNameCompetency = $('#input-edit-name-competency')
+
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('api.admin.competency.show', ':id') }}".replace(':id', competencyId),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        const competency = response.data.competency
+                        
+                        textNameCompetency.val(competency.name)
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    if (response.status === 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Error',
+                            text: responseJson.message
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: responseJson.message
+                        })
+                    }
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+        })
+
+        $('#form-edit-competency').on('submit', function (event) {
+            event.preventDefault()
+
+            const inputEditNameCompetency = $('#input-edit-name-competency').val()
+            const btnUpdate = $('#btn-update')
+
+            btnUpdate.attr('disabled', true)
+            btnUpdate.html('Update...')
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+            
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-spin"
+            })
+
+            $.ajax({
+                type: 'PUT',
+                url: "{{ route('api.admin.competency.update', ':id') }}".replace(':id', competencyId),
+                contentType: "application/json",
+                data: JSON.stringify({
+                    name : inputEditNameCompetency
+                }),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status_code === 200) {
+                        $('#editCompetencyModal').find('input').val('')
+                        $('#editCompetencyModal').modal('hide')
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message
+                        }).then(function(){
+                            fecthAllCompetencies()
+                        })
+                    } else {
+                        $('#editCompetencyModal').modal('hide')
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        })
+                    }
+                },
+                error: function (response) {
+                    const responseJson = response.responseJSON
+
+                    if (response.status === 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Error',
+                            text: responseJson.message
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: responseJson.message
+                        })
+                    }
+                },
+
+                complete: function () {
+                    $.LoadingOverlay("hide")
+                }
+            })
+
+            btnUpdate.html('Update')
+            btnUpdate.removeAttr("disabled")
+        })
+
+        $(document).on('click', '#btn-delete', function (event) {
+            event.preventDefault()
+
+            const btnDelete = $(this)
+
+            btnDelete.attr("disabled", true)
+            btnDelete.html('Hapus...')
+
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: "Apakah yakin ingin menghapus data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#CF2F0D',
+                cancelButtonColor: '#8B8B8B',
+                confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    })
+
+                    $.LoadingOverlay("show", {
+                        image: "",
+                        fontawesome: "fa fa-spinner fa-spin"
+                    })
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ route('api.admin.competency.destroy') }}",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            id : btnDelete.val()
+                        }),
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status_code === 200) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: response.message
+                                }).then(function(){
+                                    fecthAllCompetencies()
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: response.message
+                                })
+                            }
+                        },
+                        error: function (response) {
+                            const responseJson = response.responseJSON
+
+                            if (response.status === 422) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Validasi Error',
+                                    text: responseJson.message
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: responseJson.message
+                                })
+                            }
+                        },
+                        
+                        complete: function () {
+                            $.LoadingOverlay("hide")
+                        }
+                    })
+                }
+            })
+
+            btnDelete.html('Hapus')
+            btnDelete.removeAttr("disabled")
+        })
     </script>
 @endsection

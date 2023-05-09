@@ -4,7 +4,11 @@ namespace App\Services\Admin\Classroom\Impl;
 
 use App\Models\School\Classroom;
 use App\Services\Admin\Classroom\ClassroomService;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use PHPUnit\Logging\Exception;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ClassroomServiceImpl implements ClassroomService
@@ -21,7 +25,7 @@ class ClassroomServiceImpl implements ClassroomService
      *
      * @return mixed
      */
-    public function getSchoolIdFromAdminAuthenticated()
+    public function getSchoolIdFromAdminAuthenticated(): mixed
     {
         return auth()->user()->admin->school->id;
     }
@@ -30,74 +34,70 @@ class ClassroomServiceImpl implements ClassroomService
      * Get Classrooms
      *
      * @param Request $request
-     * @return mixed
+     * @return Builder[]|Collection
      */
-    public function getClassrooms(Request $request)
+    public function getClassrooms(Request $request): Collection|array
     {
-        $classrooms = $this->classroomModel->with(['competency'])->where(
+        if ($request->has('search') && $request->filled('search'))
+            return $this->classroomModel->query()->where(
+                function ($q) use ($request) {
+                    $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated())
+                        ->where('name', 'LIKE', "%{$request->input('search')}%");
+                }
+            )->orderBy(
+                'competency_id', 'DESC'
+            )->get();
+
+        return $this->classroomModel->query()->where(
             function ($q) {
                 $q->where('school_id', $this->getSchoolIdFromAdminAuthenticated());
             }
-        )->orderBy('competency_id', 'DESC')->get();
-
-        return $classrooms;
+        )->orderBy(
+            'competency_id', 'DESC'
+        )->get();
     }
 
     /**
      * Find Classroom
      *
-     * @param int|string $param
-     * @return mixed
-     * @throws \Exception
+     * @param string|int $param
+     * @return Builder|Builder[]|Collection|Model
      */
-    public function findClassroom(int|string $param)
+    public function findClassroom(string|int $param): Model|Collection|Builder|array
     {
-        $classroom = $this->classroomModel->find($param);
+        $classroom = $this->classroomModel->query()->find($param);
 
         if (!$classroom)
-            throw new \Exception('Data Kelas tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+            throw new Exception('Data Kelas tidak tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
 
         return $classroom;
     }
 
     /**
-     * Create Classrooms
+     * Create Classroom
      *
      * @param Request $request
-     * @return array
+     * @return Model|Builder
      */
-    public function createClassrooms(Request $request)
+    public function createClassroom(Request $request): Model|Builder
     {
-        $classrooms = [];
-        $inputCompetencies = $request->input('competencies');
-
-        foreach ($inputCompetencies as $competency) {
-            $competencyId = $competency['id'];
-            $competencies = $competency['classrooms'];
-
-            foreach ($competencies as $classroomName) {
-                $classrooms = $this->classroomModel->create(
-                    array_filter([
-                        'school_id' => $this->getSchoolIdFromAdminAuthenticated(),
-                        'competency_id' => $competencyId,
-                        'name' => $classroomName
-                    ], customArrayFilter())
-                );
-            }
-        }
-
-        return $classrooms;
+        return $this->classroomModel->query()->create(
+            array_filter([
+                'school_id' => $this->getSchoolIdFromAdminAuthenticated(),
+                'competency_id' => $request->input('competency_id'),
+                'name' => $request->input('name')
+            ], customArrayFilter())
+        );
     }
 
     /**
      * Update Classroom
      *
      * @param Request $request
-     * @param string|int $param
-     * @return mixed
-     * @throws \Exception
+     * @param Classroom $classroom
+     * @return Classroom
      */
-    public function updateClassroom(Request $request, Classroom $classroom)
+    public function updateClassroom(Request $request, Classroom $classroom): Classroom
     {
         $classroom->update(
             array_filter([
@@ -110,16 +110,19 @@ class ClassroomServiceImpl implements ClassroomService
         return $classroom->refresh();
     }
 
-
     /**
-     * Delete Classrooms
+     * Delete Classroom
      *
-     * @param Request $request
-     * @param array $classroomsIds
-     * @return int
+     * @param string|int $param
+     * @return bool|mixed|null
      */
-    public function deleteClassrooms(Request $request, array $classroomsIds)
+    public function deleteClassroom(string|int $param): mixed
     {
-        return $this->classroomModel->destroy($classroomsIds);
+        $classroom = $this->classroomModel->query()->find($param);
+
+        if (!$classroom)
+            throw new Exception('Data Kelas tidak ditemukan', ResponseAlias::HTTP_BAD_REQUEST);
+
+        return $classroom->delete();
     }
 }

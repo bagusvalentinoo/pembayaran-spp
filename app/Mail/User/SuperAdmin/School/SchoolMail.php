@@ -28,7 +28,7 @@ class SchoolMail extends Mailable
      */
     public function build()
     {
-        return $this->from('officialgorent@gmail.com', 'Akun Pembayaran SPP')
+        return $this->from('darinasidis@gmail.com', 'Akun Pembayaran SPP')
             ->subject($this->data['subject'])
             ->view('vendor.template.email.index')
             ->with('data', $this->data);

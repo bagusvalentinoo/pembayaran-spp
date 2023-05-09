@@ -20,14 +20,19 @@ class ClassroomController extends ApiController
     }
 
     /**
-     * Get Classrooms Data
+     * Get Classrooms
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws FormattedResponseException
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        $classrooms = $this->classroomService->getClassrooms($request);
+        try {
+            $classrooms = $this->classroomService->getClassrooms($request);
+        } catch (\Throwable $th) {
+            $this->returnCatchThrowableToJsonResponse($th);
+        }
 
         return $this->makeJsonResponse(
             $this->makeResponsePayload()
@@ -41,13 +46,13 @@ class ClassroomController extends ApiController
     }
 
     /**
-     * Show Classroom By Param
+     * Find Classroom
      *
      * @param string|int $param
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function show(string|int $param)
+    public function show(string|int $param): JsonResponse
     {
         try {
             $classroom = $this->classroomService->findClassroom($param);
@@ -67,16 +72,16 @@ class ClassroomController extends ApiController
     }
 
     /**
-     * Create Classrooms
+     * Create Classroom
      *
      * @param ClassroomRequest $request
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function store(ClassroomRequest $request)
+    public function store(ClassroomRequest $request): JsonResponse
     {
         try {
-            $this->classroomService->createClassrooms($request);
+            $this->classroomService->createClassroom($request);
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }
@@ -90,14 +95,14 @@ class ClassroomController extends ApiController
     }
 
     /**
-     * Classroom Update
+     * Update Classroom
      *
      * @param ClassroomRequest $request
      * @param string|int $param
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function update(ClassroomRequest $request, string|int $param)
+    public function update(ClassroomRequest $request, string|int $param): JsonResponse
     {
         try {
             $classroom = $this->classroomService->findClassroom($param);
@@ -115,16 +120,16 @@ class ClassroomController extends ApiController
     }
 
     /**
-     * Delete Classrooms
+     * Delete Classroom
      *
      * @param ClassroomRequest $request
      * @return JsonResponse
      * @throws FormattedResponseException
      */
-    public function destroy(ClassroomRequest $request)
+    public function destroy(ClassroomRequest $request): JsonResponse
     {
         try {
-            $this->classroomService->deleteClassrooms($request, $request->input('ids'));
+            $this->classroomService->deleteClassroom($request->input('id'));
         } catch (\Throwable $th) {
             return $this->returnCatchThrowableToJsonResponse($th);
         }

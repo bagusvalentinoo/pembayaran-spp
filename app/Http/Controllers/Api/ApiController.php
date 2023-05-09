@@ -6,13 +6,13 @@ use App\Exceptions\Http\FormattedResponseException;
 use App\Http\Controllers\Controller;
 use App\Traits\Controller\ControllerResource;
 use App\Traits\Http\RequestResponse;
-use App\Traits\Services\ServiceResource;
+use App\Traits\Services\StringManipulation;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ApiController extends Controller
 {
-    use RequestResponse, ControllerResource, ServiceResource;
+    use RequestResponse, ControllerResource, StringManipulation;
 
     /**
      * Home

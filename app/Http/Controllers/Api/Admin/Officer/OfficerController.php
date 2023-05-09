@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Api\Admin\Officer;
 use App\Exceptions\Http\FormattedResponseException;
 use App\Http\Controllers\Api\ApiController;
 use App\Services\Admin\Officer\OfficerService;
-use App\Traits\Services\ServiceResource;
+use App\Traits\Services\StringManipulation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class OfficerController extends ApiController
 {
-    use ServiceResource;
+    use StringManipulation;
 
     private $officerService;
 

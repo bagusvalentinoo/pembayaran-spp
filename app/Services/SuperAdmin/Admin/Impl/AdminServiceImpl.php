@@ -6,7 +6,7 @@ use App\Mail\User\SuperAdmin\School\SchoolMail;
 use App\Models\User\Admin;
 use App\Models\User\User;
 use App\Services\SuperAdmin\Admin\AdminService;
-use App\Traits\Services\ServiceResource;
+use App\Traits\Services\StringManipulation;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class AdminServiceImpl implements AdminService
 {
-    use ServiceResource;
+    use StringManipulation;
 
     private $userModel, $adminModel;
 
@@ -36,7 +36,8 @@ class AdminServiceImpl implements AdminService
      */
     public function getAdmins(Request $request): Collection|array
     {
-        if ($request->has('search')) {
+
+        if ($request->has('search') && $request->filled('search')) {
             return $this->adminModel->query()->where(
                 function ($q) use ($request) {
                     $q->where('name', 'LIKE', "%{$request->input('search')}%");
@@ -45,14 +46,13 @@ class AdminServiceImpl implements AdminService
                 'school',
                 'school.schoolType'
             ])->get();
-        } elseif ($request->has('filter')) {
-            if ($request->filled('filter')) {
-                return $this->adminModel->query()->where(
-                    function ($q) use ($request) {
-
-                    }
-                );
-            }
+        } elseif ($request->has('filter') && $request->filled('filter')) {
+            return $this->adminModel->query()->whereHas('school', function ($q) use ($request) {
+                $q->where('school_type_id', $request->input('filter'));
+            })->with([
+                'school',
+                'school.schoolType'
+            ])->get();
         }
 
         return $this->adminModel->query()->with(['school', 'school.schoolType'])->get();

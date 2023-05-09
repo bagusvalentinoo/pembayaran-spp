@@ -28,7 +28,7 @@ class SchoolServiceImpl implements SchoolService
      */
     public function getSchools(Request $request): Collection|array
     {
-        if ($request->has('search')) {
+        if ($request->has('search') && $request->filled('search')) {
             return $this->schoolModel->where(
                 function ($q) use ($request) {
                     $q->where('name', 'LIKE', "%{$request->input('search')}%")
@@ -36,18 +36,19 @@ class SchoolServiceImpl implements SchoolService
                 }
             )->with([
                 'schoolType'
-            ])->get();
-        } else if ($request->has('filter')) {
-            if ($request->filled('filter')) {
-                return $this->schoolModel->where(
-                    function ($q) use ($request) {
-                        $q->where('school_type_id', $request->input('filter'));
-                    }
-                )->with([
-                    'schoolType'
-                ])->get();
-            }
-            return $this->schoolModel->query()->with(['schoolType'])->orderBy('school_type_id')->get();
+            ])->orderBy(
+                'school_type_id'
+            )->get();
+        } else if ($request->has('filter') && $request->filled('filter')) {
+            return $this->schoolModel->where(
+                function ($q) use ($request) {
+                    $q->where('school_type_id', $request->input('filter'));
+                }
+            )->with([
+                'schoolType'
+            ])->orderBy(
+                'school_type_id'
+            )->get();
         }
 
         return $this->schoolModel->query()->with(['schoolType'])->orderBy('school_type_id')->get();

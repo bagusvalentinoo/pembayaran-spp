@@ -964,6 +964,7 @@
 
         $(document).on('click', '#btn-delete-school', function(event) {
             event.preventDefault()
+            
             const btnDeleteSchool = $(this)
 
             btnDeleteSchool.attr("disabled", true)

@@ -49,8 +49,8 @@ class CompetencyRequest extends FormRequest implements RequestResource
     public function getCreateRules(): array
     {
         return [
-            'names' => [
-                'required', 'array'
+            'name' => [
+                'required'
             ]
         ];
     }
@@ -77,11 +77,8 @@ class CompetencyRequest extends FormRequest implements RequestResource
     public function getDeleteRules(): array
     {
         return [
-            'ids' => [
-                'required', 'array', 'min:1'
-            ],
-            'ids.*' => [
-                'uuid', 'exists:competencies,id'
+            'id' => [
+                'required'
             ]
         ];
     }
@@ -91,17 +88,11 @@ class CompetencyRequest extends FormRequest implements RequestResource
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
-            'names.required' => 'Nama Kompetensi wajib diisi',
-            'names.array' => 'Nama Kompetensi harus bertipe array',
             'name.required' => 'Nama Kompetensi wajib diisi',
-            'ids.required' => 'Id Kompetensi wajib diisi',
-            'ids.array' => 'Id Kompetensi harus berupa array',
-            'ids.min' => 'Minimal terdapat 1 item Id',
-            'ids.*.uuid' => 'Id harus berupa UUID',
-            'ids.*.exists' => 'Id tidak valid'
+            'id.required' => 'Id Kompetensi wajib diisi',
         ];
     }
 }

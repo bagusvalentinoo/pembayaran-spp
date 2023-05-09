@@ -47,17 +47,11 @@ class ClassroomRequest extends FormRequest implements RequestResource
     public function getCreateRules(): array
     {
         return [
-            'competencies' => [
-                'required', 'array', 'min:1'
+            'name' => [
+                'required'
             ],
-            'competencies.*.id' => [
-                'required', 'uuid', 'exists:competencies,id'
-            ],
-            'competencies.*.classrooms' => [
-                'required', 'array', 'min:1'
-            ],
-            'competencies.*.classrooms.*' => [
-                'required', 'string'
+            'competency_id' => [
+                'required'
             ]
         ];
     }
@@ -70,17 +64,11 @@ class ClassroomRequest extends FormRequest implements RequestResource
     public function getUpdateRules(): array
     {
         return [
-            'competency_id' => [
-                'required'
-            ],
-            'competency_id.*' => [
-                'uuid', 'exists:competencies,id'
-            ],
             'name' => [
                 'required'
             ],
-            'name.*' => [
-                'string'
+            'competency_id' => [
+                'required'
             ]
         ];
     }
@@ -93,11 +81,8 @@ class ClassroomRequest extends FormRequest implements RequestResource
     public function getDeleteRules(): array
     {
         return [
-            'ids' => [
-                'required', 'array', 'min:1'
-            ],
-            'ids.*' => [
-                'uuid', 'exists:classrooms,id'
+            'id' => [
+                'required'
             ]
         ];
     }
@@ -107,31 +92,12 @@ class ClassroomRequest extends FormRequest implements RequestResource
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
-
-            // Create Messages
-            'competencies.required' => 'Kompetensi wajib diisi',
-            'competencies.array' => 'Kompetensi harus berupa array',
-            'competencies.min' => 'Minimal 1 kompetensi diperlukan',
-            'competencies.*.id.required' => 'ID kompetensi diperlukan',
-            'competencies.*.id.uuid' => 'ID kompetensi tidak valid',
-            'competencies.*.id.exists' => 'ID kompetensi tidak ditemukan',
-            'competencies.*.classrooms.required' => 'Kelas diperlukan',
-            'competencies.*.classrooms.array' => 'Kelas harus berupa array',
-            'competencies.*.classrooms.min' => 'Minimal 1 kelas diperlukan',
-            'competencies.*.classrooms.*.required' => 'Nama kelas diperlukan',
-            'competencies.*.classrooms.*.string' => 'Nama kelas harus berupa string',
-
-            // Update Messages
-
-            // Delete Messages
-            'ids.required' => 'Id Kompetensi wajib diisi',
-            'ids.array' => 'Id Kompetensi harus berupa array',
-            'ids.min' => 'Minimal terdapat 1 item Id',
-            'ids.*.uuid' => 'Id harus berupa UUID',
-            'ids.*.exists' => 'Id tidak valid'
+            'name.required' => 'Nama Kelas wajib diisi',
+            'competency_id.required' => 'Kompetensi wajib dipilih',
+            'id.required' => 'Kompetensi wajib dipilih'
         ];
     }
 }
